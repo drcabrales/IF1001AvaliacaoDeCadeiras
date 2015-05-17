@@ -6,8 +6,25 @@ package objeto;
 public class Aluno {
     private String nome;
     private String email;
-    private int idCurso;
     private byte[] foto;
+    private String nomeCurso;
+    private int idFaculdade;
+
+    public String getNomeCurso() {
+        return nomeCurso;
+    }
+
+    public void setNomeCurso(String nomeCurso) {
+        this.nomeCurso = nomeCurso;
+    }
+
+    public int getIdFaculdade() {
+        return idFaculdade;
+    }
+
+    public void setIdFaculdade(int idFaculdade) {
+        this.idFaculdade = idFaculdade;
+    }
 
     public byte[] getFoto() {
         return foto;
@@ -33,11 +50,4 @@ public class Aluno {
         this.email = email;
     }
 
-    public int getIdCurso() {
-        return idCurso;
-    }
-
-    public void setIdCurso(int idCurso) {
-        this.idCurso = idCurso;
-    }
 }
