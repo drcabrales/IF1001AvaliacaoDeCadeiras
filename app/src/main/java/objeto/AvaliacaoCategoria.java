@@ -7,7 +7,7 @@ public class AvaliacaoCategoria {
 
     int idAvaliacao;
     int idCategoria;
-    String nota;
+    int nota;
 
     public int getIdAvaliacao() {
         return idAvaliacao;
@@ -25,11 +25,11 @@ public class AvaliacaoCategoria {
         this.idCategoria = idCategoria;
     }
 
-    public String getNota() {
+    public int getNota() {
         return nota;
     }
 
-    public void setNota(String nota) {
+    public void setNota(int nota) {
         this.nota = nota;
     }
 }

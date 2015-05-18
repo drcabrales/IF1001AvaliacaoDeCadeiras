@@ -31,7 +31,7 @@ public class RepositorioCurso {
     }
 
 
-    public Curso get(String nome){
-        return db.getCurso(nome);
+    public Curso get(String nome, int idFaculdade){
+        return db.getCurso(nome, idFaculdade);
     }
 }

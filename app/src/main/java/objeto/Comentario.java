@@ -6,10 +6,26 @@ package objeto;
 public class Comentario {
 
     int id;
-    String emailAluno;
+    int idAvaliacao;
     String ano;
     String semestre;
-    String text;
+    String texto;
+
+    public int getIdAvaliacao() {
+        return idAvaliacao;
+    }
+
+    public void setIdAvaliacao(int idAvaliacao) {
+        this.idAvaliacao = idAvaliacao;
+    }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public void setTexto(String texto) {
+        this.texto = texto;
+    }
 
     public int getId() {
         return id;
@@ -17,14 +33,6 @@ public class Comentario {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getEmailAluno() {
-        return emailAluno;
-    }
-
-    public void setEmailAluno(String emailAluno) {
-        this.emailAluno = emailAluno;
     }
 
     public String getAno() {
@@ -43,11 +51,4 @@ public class Comentario {
         this.semestre = semestre;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
 }

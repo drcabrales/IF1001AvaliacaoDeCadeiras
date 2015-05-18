@@ -9,6 +9,26 @@ public class Avaliacao {
     String emailAluno;
     private String nomeCurso;
     private int idFaculdade;
+    private String nomeCadeira;
+    private String nomeProfessor;
+
+    public String getNomeProfessor() {
+        return nomeProfessor;
+    }
+
+    public void setNomeProfessor(String nomeProfessor) {
+        this.nomeProfessor = nomeProfessor;
+    }
+
+    public String getNomeCadeira() {
+        return nomeCadeira;
+    }
+
+    public void setNomeCadeira(String nomeCadeira) {
+        this.nomeCadeira = nomeCadeira;
+    }
+
+
 
     public int getId() {
         return id;
