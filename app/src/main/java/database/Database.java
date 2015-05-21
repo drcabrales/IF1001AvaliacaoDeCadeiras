@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import java.util.ArrayList;
 
 
 import objeto.Aluno;
@@ -27,6 +28,8 @@ public class Database extends SQLiteOpenHelper{
     private static final String TABLE_ALUNO = "aluno";
     public static final String KEY_EMAIL = "email";
     public static final String KEY_NOME = "nome";
+
+
     public static final String KEY_IDCURSO = "idCurso";
     public static final String KEY_FOTO = "foto";
 
@@ -226,8 +229,10 @@ public class Database extends SQLiteOpenHelper{
         database = this.getReadableDatabase();
         Cursor cursor = database.query(TABLE_ALUNO, new String[] { KEY_EMAIL, KEY_NOME,
                  KEY_FOTO, KEY_NOMECURSO, KEY_IDFACULDADE }, null, null, null, null, null);
+
         return cursor;
     }
+
 
     public Cursor getAllFaculdades() { //ALTERAR PARA RETORNAR LIST AO INVES DE CURSOR
         database = this.getReadableDatabase();
@@ -334,12 +339,12 @@ public class Database extends SQLiteOpenHelper{
 
     public void deleteAvaliacaoMetodo(AvaliacaoMetodo avaliacaoMetodo){
         database = this.getWritableDatabase();
-        database.execSQL("delete from avaliacaoMetodo where id = '" + avaliacaoMetodo.getIdAvaliacao() + "';");
+        database.execSQL("delete from avaliacaoMetodo where idAvaliacao = '" + avaliacaoMetodo.getIdAvaliacao() + "';");
     }
 
     public void deleteAvaliacaoCategoria(AvaliacaoCategoria avaliacaoCategoria){
         database = this.getWritableDatabase();
-        database.execSQL("delete from avaliacaoCategoria where id = '" + avaliacaoCategoria.getIdAvaliacao() + "';");
+        database.execSQL("delete from avaliacaoCategoria where idAvaliacao = '" + avaliacaoCategoria.getIdAvaliacao() + "';");
     }
 
     public void deleteComentario(Comentario comentario){

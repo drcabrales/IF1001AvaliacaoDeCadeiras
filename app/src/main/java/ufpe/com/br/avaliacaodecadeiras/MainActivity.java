@@ -50,21 +50,30 @@ public class MainActivity extends ActionBarActivity {
         Database db = new Database(this);
 
         RepositorioFaculdade repositorioFaculdade = new RepositorioFaculdade(db);
-        Faculdade facul = new Faculdade();
-        facul.setNome("Universidade Federal de Pernambuco");
-        facul.setSigla("UFPE");
-        repositorioFaculdade.insert(facul);
+       Faculdade facul = new Faculdade();
+       facul.setNome("Universidade Federal de Pernambuco");
+       facul.setSigla("UFPE");
+       facul.setId(1);
+       //repositorioFaculdade.insert(facul);
+       // repositorioFaculdade.delete(facul);
+        repositorioFaculdade.list();
         Faculdade retornoBanco = repositorioFaculdade.get(1);
         txt1.setText(retornoBanco.getNome());
+
+
 
         RepositorioCurso repositorioCurso = new RepositorioCurso(db);
         Curso curso = new Curso();
         curso.setIdFaculdade(1);
         curso.setNome("Ciência da Computação");
         curso.setDescricao("Curso pra doido");
-        repositorioCurso.insert(curso);
+       // repositorioCurso.insert(curso);
+       // repositorioCurso.delete( curso);
         Curso retornoBancoCurso = repositorioCurso.get(curso.getNome(), curso.getIdFaculdade());
         txt2.setText(retornoBancoCurso.getNome());
+
+
+
 
         RepositorioAluno repositorioAluno = new RepositorioAluno(db);
         Aluno aluno = new Aluno();
@@ -72,21 +81,26 @@ public class MainActivity extends ActionBarActivity {
         aluno.setNomeCurso("Ciência da Computação");
         aluno.setNome("Diogo");
         aluno.setEmail("diogo@gmail.com");
-        repositorioAluno.insert(aluno);
+      //  repositorioAluno.insert(aluno);
+        //repositorioAluno.delete(aluno);
         Aluno retornoBancoAluno = repositorioAluno.get(aluno.getEmail());
         txt3.setText(retornoBancoAluno.getNome());
 
         RepositorioCategoriaAvaliacaoCadeira repositorioCategoriaAvaliacaoCadeira = new RepositorioCategoriaAvaliacaoCadeira(db);
         CategoriaAvaliacaoCadeira categoriaAvaliacaoCadeira = new CategoriaAvaliacaoCadeira();
         categoriaAvaliacaoCadeira.setNome("Ensino bom");
-        repositorioCategoriaAvaliacaoCadeira.insert(categoriaAvaliacaoCadeira);
+        categoriaAvaliacaoCadeira.setId(1);
+       // repositorioCategoriaAvaliacaoCadeira.insert(categoriaAvaliacaoCadeira);
+       // repositorioCategoriaAvaliacaoCadeira.delete(categoriaAvaliacaoCadeira);
         CategoriaAvaliacaoCadeira retornoCategoriaAvaliacaoCadeira = repositorioCategoriaAvaliacaoCadeira.get(1);
         txt4.setText(retornoCategoriaAvaliacaoCadeira.getNome());
 
         RepositorioMetodoAvaliacaoCadeira repositorioMetodoAvaliacaoCadeira = new RepositorioMetodoAvaliacaoCadeira(db);
         MetodoAvaliacaoCadeira metodoAvaliacaoCadeira = new MetodoAvaliacaoCadeira();
         metodoAvaliacaoCadeira.setNome("Provas");
-        repositorioMetodoAvaliacaoCadeira.insert(metodoAvaliacaoCadeira);
+        metodoAvaliacaoCadeira.setId(1);
+       // repositorioMetodoAvaliacaoCadeira.insert(metodoAvaliacaoCadeira);
+     //   repositorioMetodoAvaliacaoCadeira.delete(metodoAvaliacaoCadeira);
         MetodoAvaliacaoCadeira retornoMetodoAvaliacaoCadeira = repositorioMetodoAvaliacaoCadeira.get(1);
         txt5.setText(retornoMetodoAvaliacaoCadeira.getNome());
 
@@ -96,7 +110,8 @@ public class MainActivity extends ActionBarActivity {
         cadeira.setNomeCurso("Ciência da Computação");
         cadeira.setNome("Programação 3");
         cadeira.setNomeProfessor("Leopoldo");
-        repositorioCadeira.insert(cadeira);
+       // repositorioCadeira.insert(cadeira);
+      //  repositorioCadeira.delete(cadeira);
         Cadeira retornoBancoCadeira = repositorioCadeira.get(cadeira.getNome(), cadeira.getNomeProfessor(), cadeira.getNomeCurso(), cadeira.getIdFaculdade());
         txt6.setText(retornoBancoCadeira.getNome());
 
@@ -107,15 +122,18 @@ public class MainActivity extends ActionBarActivity {
         avaliacao.setNomeCurso("Ciência da Computação");
         avaliacao.setNomeCadeira("Programação 3");
         avaliacao.setNomeProfessor("Leopoldo");
-        repositorioAvaliacao.insert(avaliacao);
+        avaliacao.setId(1);
+       // repositorioAvaliacao.insert(avaliacao);
+       // repositorioAvaliacao.delete(avaliacao);
         Avaliacao retornoBancoAvaliacao = repositorioAvaliacao.get(1);
         txt7.setText(retornoBancoAvaliacao.getEmailAluno() + " - " + retornoBancoAvaliacao.getNomeCadeira());
 
         RepositorioAvaliacaoMetodo repositorioAvaliacaoMetodo = new RepositorioAvaliacaoMetodo(db);
         AvaliacaoMetodo avaliacaoMetodo = new AvaliacaoMetodo();
         avaliacaoMetodo.setIdAvaliacao(1);
-        avaliacaoMetodo.setIdMetodo(1);
-        repositorioAvaliacaoMetodo.insert(avaliacaoMetodo);
+        //avaliacaoMetodo.setIdMetodo(1);
+        //repositorioAvaliacaoMetodo.insert(avaliacaoMetodo);
+        //repositorioAvaliacaoMetodo.delete(avaliacaoMetodo);
         AvaliacaoMetodo retornoBancoAvaliacaoMetodo = repositorioAvaliacaoMetodo.get(1);
         txt8.setText(retornoBancoAvaliacaoMetodo.getIdAvaliacao() + " - " + retornoBancoAvaliacaoMetodo.getIdMetodo());
 
@@ -123,7 +141,9 @@ public class MainActivity extends ActionBarActivity {
         AvaliacaoCategoria avaliacaoCategoria = new AvaliacaoCategoria();
         avaliacaoCategoria.setIdAvaliacao(1);
         avaliacaoCategoria.setIdCategoria(1);
-        repositorioAvaliacaoCategoria.insert(avaliacaoCategoria);
+        avaliacaoCategoria.setNota(0);
+       // repositorioAvaliacaoCategoria.insert(avaliacaoCategoria);
+       // repositorioAvaliacaoCategoria.delete(avaliacaoCategoria);
         AvaliacaoCategoria retornoAvaliacaoCategoria = repositorioAvaliacaoCategoria.get(1);
         txt9.setText(retornoAvaliacaoCategoria.getIdAvaliacao() + " - " + retornoAvaliacaoCategoria.getIdCategoria());
 
@@ -133,9 +153,12 @@ public class MainActivity extends ActionBarActivity {
         comentario.setIdAvaliacao(1);
         comentario.setAno("2015");
         comentario.setSemestre("2");
-        repositorioComentario.insert(comentario);
-        Comentario retornoComentario = repositorioComentario.get(1);
-        txt10.setText(retornoComentario.getTexto());
+        comentario.setId(1);
+
+       // repositorioComentario.insert(comentario);
+       // repositorioComentario.delete(comentario);
+       Comentario retornoComentario = repositorioComentario.get(1);
+       txt10.setText(retornoComentario.getTexto());
 
 
     }

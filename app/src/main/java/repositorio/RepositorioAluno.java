@@ -24,7 +24,7 @@ public class RepositorioAluno {
         db.deleteAluno(aluno);
     }
 
-    public Cursor list(){
+   public Cursor list(){
         return db.getAllAlunos();
     }
 
