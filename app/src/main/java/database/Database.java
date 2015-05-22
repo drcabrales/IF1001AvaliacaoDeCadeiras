@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 import java.util.ArrayList;
+import java.util.List;
 
 
 import objeto.Aluno;
@@ -225,73 +226,197 @@ public class Database extends SQLiteOpenHelper{
         return database.insert(TABLE_COMENTARIO, null, initialValues);
     }
 
-    public Cursor getAllAlunos() { //ALTERAR PARA RETORNAR LIST AO INVES DE CURSOR
+    public List<Aluno> getAllAlunos() {
         database = this.getReadableDatabase();
         Cursor cursor = database.query(TABLE_ALUNO, new String[] { KEY_EMAIL, KEY_NOME,
                  KEY_FOTO, KEY_NOMECURSO, KEY_IDFACULDADE }, null, null, null, null, null);
 
-        return cursor;
+        List<Aluno> retorno = new ArrayList<Aluno>();
+
+        while(cursor.moveToNext()){
+            Aluno aluno = new Aluno();
+            aluno.setEmail(cursor.getString(cursor.getColumnIndex(KEY_EMAIL)));
+            aluno.setFoto(cursor.getBlob(cursor.getColumnIndex(KEY_FOTO)));
+            aluno.setNome(cursor.getString(cursor.getColumnIndex(KEY_NOME)));
+            aluno.setNomeCurso(cursor.getString(cursor.getColumnIndex(KEY_NOMECURSO)));
+            aluno.setIdFaculdade(cursor.getInt(cursor.getColumnIndex(KEY_IDFACULDADE)));
+
+            retorno.add(aluno);
+        }
+
+        return retorno;
     }
 
 
-    public Cursor getAllFaculdades() { //ALTERAR PARA RETORNAR LIST AO INVES DE CURSOR
+    public List<Faculdade> getAllFaculdades() {
         database = this.getReadableDatabase();
         Cursor cursor = database.query(TABLE_FACULDADE, new String[] { KEY_ID, KEY_NOME,
                 KEY_SIGLA }, null, null, null, null, null);
-        return cursor;
+
+        List<Faculdade> retorno = new ArrayList<Faculdade>();
+
+        while(cursor.moveToNext()){
+            Faculdade faculdade = new Faculdade();
+            faculdade.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+            faculdade.setNome(cursor.getString(cursor.getColumnIndex(KEY_NOME)));
+            faculdade.setSigla(cursor.getString(cursor.getColumnIndex(KEY_SIGLA)));
+
+            retorno.add(faculdade);
+        }
+
+        return retorno;
     }
 
-    public Cursor getAllCurso() { //ALTERAR PARA RETORNAR LIST AO INVES DE CURSOR
+    public List<Curso> getAllCurso() {
         database = this.getReadableDatabase();
         Cursor cursor = database.query(TABLE_CURSO, new String[] { KEY_NOME, KEY_IDFACULDADE,
                 KEY_DESCRICAO }, null, null, null, null, null);
-        return cursor;
+
+        List<Curso> retorno = new ArrayList<Curso>();
+
+        while(cursor.moveToNext()){
+            Curso curso = new Curso();
+            curso.setNome(cursor.getString(cursor.getColumnIndex(KEY_NOME)));
+            curso.setIdFaculdade(cursor.getInt(cursor.getColumnIndex(KEY_IDFACULDADE)));
+            curso.setDescricao(cursor.getString(cursor.getColumnIndex(KEY_DESCRICAO)));
+
+            retorno.add(curso);
+        }
+
+        return retorno;
     }
 
-    public Cursor getAllCategoriaAvaliacaoCadeira() { //ALTERAR PARA RETORNAR LIST AO INVES DE CURSOR
+    public List<CategoriaAvaliacaoCadeira> getAllCategoriaAvaliacaoCadeira() {
         database = this.getReadableDatabase();
-        Cursor cursor = database.query(TABLE_AVALIACAOCATEGORIA, new String[] { KEY_ID, KEY_NOME }, null, null, null, null, null);
-        return cursor;
+        Cursor cursor = database.query(TABLE_CATEGORIAAVALIACAOCADEIRA, new String[] { KEY_ID, KEY_NOME }, null, null, null, null, null);
+
+        List<CategoriaAvaliacaoCadeira> retorno = new ArrayList<CategoriaAvaliacaoCadeira>();
+
+        while(cursor.moveToNext()){
+            CategoriaAvaliacaoCadeira categoriaAvaliacaoCadeira = new CategoriaAvaliacaoCadeira();
+            categoriaAvaliacaoCadeira.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+            categoriaAvaliacaoCadeira.setNome(cursor.getString(cursor.getColumnIndex(KEY_NOME)));
+
+            retorno.add(categoriaAvaliacaoCadeira);
+        }
+
+        return retorno;
     }
 
-    public Cursor getAllMetodoAvaliacaoCadeira() { //ALTERAR PARA RETORNAR LIST AO INVES DE CURSOR
+    public List<MetodoAvaliacaoCadeira> getAllMetodoAvaliacaoCadeira() {
         database = this.getReadableDatabase();
         Cursor cursor = database.query(TABLE_METODOAVALIACAOCADEIRA, new String[] { KEY_ID, KEY_NOME }, null, null, null, null, null);
-        return cursor;
+
+        List<MetodoAvaliacaoCadeira> retorno = new ArrayList<MetodoAvaliacaoCadeira>();
+
+        while(cursor.moveToNext()){
+            MetodoAvaliacaoCadeira metodoAvaliacaoCadeira = new MetodoAvaliacaoCadeira();
+            metodoAvaliacaoCadeira.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+            metodoAvaliacaoCadeira.setNome(cursor.getString(cursor.getColumnIndex(KEY_NOME)));
+
+            retorno.add(metodoAvaliacaoCadeira);
+        }
+
+        return retorno;
     }
 
-    public Cursor getAllCadeira() { //ALTERAR PARA RETORNAR LIST AO INVES DE CURSOR
+    public  List<Cadeira> getAllCadeira() {
         database = this.getReadableDatabase();
         Cursor cursor = database.query(TABLE_CADEIRA, new String[] {KEY_NOME,
                 KEY_NOMEPROFESSOR, KEY_NOMECURSO, KEY_IDFACULDADE }, null, null, null, null, null);
-        return cursor;
+
+        List<Cadeira> retorno = new ArrayList<Cadeira>();
+
+        while(cursor.moveToNext()){
+            Cadeira cadeira = new Cadeira();
+            cadeira.setNomeProfessor(cursor.getString(cursor.getColumnIndex(KEY_NOMEPROFESSOR)));
+            cadeira.setNome(cursor.getString(cursor.getColumnIndex(KEY_NOME)));
+            cadeira.setNomeCurso(cursor.getString(cursor.getColumnIndex(KEY_NOMECURSO)));
+            cadeira.setIdFaculdade(cursor.getInt(cursor.getColumnIndex(KEY_IDFACULDADE)));
+
+            retorno.add(cadeira);
+        }
+
+        return retorno;
     }
 
-    public Cursor getAllAvaliacao() { //ALTERAR PARA RETORNAR LIST AO INVES DE CURSOR
+    public List<Avaliacao> getAllAvaliacao() {
         database = this.getReadableDatabase();
-        Cursor cursor = database.query(TABLE_AVALIACAO, new String[] { KEY_ID, KEY_EMAILALUNO, KEY_NOMECURSO, KEY_IDFACULDADE }, null, null, null, null, null);
-        return cursor;
+        Cursor cursor = database.query(TABLE_AVALIACAO, new String[] { KEY_ID, KEY_EMAILALUNO, KEY_NOMECURSO, KEY_IDFACULDADE, KEY_NOMEPROFESSOR, KEY_NOMECADEIRA }, null, null, null, null, null);
+
+        List<Avaliacao> retorno = new ArrayList<Avaliacao>();
+
+        while(cursor.moveToNext()){
+            Avaliacao avaliacao = new Avaliacao();
+            avaliacao.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+            avaliacao.setEmailAluno(cursor.getString(cursor.getColumnIndex(KEY_EMAILALUNO)));
+            avaliacao.setNomeCurso(cursor.getString(cursor.getColumnIndex(KEY_NOMECURSO)));
+            avaliacao.setIdFaculdade(cursor.getInt(cursor.getColumnIndex(KEY_IDFACULDADE)));
+            avaliacao.setNomeProfessor(cursor.getString(cursor.getColumnIndex(KEY_NOMEPROFESSOR)));
+            avaliacao.setNomeCadeira(cursor.getString(cursor.getColumnIndex(KEY_NOMECADEIRA)));
+
+            retorno.add(avaliacao);
+        }
+
+        return retorno;
     }
 
-    public Cursor getAllAvaliacaoMetodo() { //ALTERAR PARA RETORNAR LIST AO INVES DE CURSOR
+    public List<AvaliacaoMetodo> getAllAvaliacaoMetodo() {
         database = this.getReadableDatabase();
         Cursor cursor = database.query(TABLE_AVALIACAOMETODO, new String[] { KEY_IDAVALIACAO, KEY_IDMETODO }, null, null, null, null, null);
-        return cursor;
+
+        List<AvaliacaoMetodo> retorno = new ArrayList<AvaliacaoMetodo>();
+
+        while(cursor.moveToNext()){
+            AvaliacaoMetodo avaliacaoMetodo = new AvaliacaoMetodo();
+            avaliacaoMetodo.setIdAvaliacao(cursor.getInt(cursor.getColumnIndex(KEY_IDAVALIACAO)));
+            avaliacaoMetodo.setIdMetodo(cursor.getInt(cursor.getColumnIndex(KEY_IDMETODO)));
+
+            retorno.add(avaliacaoMetodo);
+        }
+
+        return retorno;
     }
 
-    public Cursor getAllAvaliacaoCategoria() { //ALTERAR PARA RETORNAR LIST AO INVES DE CURSOR
+    public List<AvaliacaoCategoria> getAllAvaliacaoCategoria() {
         database = this.getReadableDatabase();
         Cursor cursor = database.query(TABLE_AVALIACAOCATEGORIA, new String[] { KEY_IDAVALIACAO, KEY_IDCATEGORIA, KEY_NOTA }, null, null, null, null, null);
-        return cursor;
+
+        List<AvaliacaoCategoria> retorno = new ArrayList<AvaliacaoCategoria>();
+
+        while(cursor.moveToNext()){
+            AvaliacaoCategoria avaliacaoCategoria = new AvaliacaoCategoria();
+            avaliacaoCategoria.setIdAvaliacao(cursor.getInt(cursor.getColumnIndex(KEY_IDAVALIACAO)));
+            avaliacaoCategoria.setIdCategoria(cursor.getInt(cursor.getColumnIndex(KEY_IDCATEGORIA)));
+            avaliacaoCategoria.setNota(cursor.getInt(cursor.getColumnIndex(KEY_NOTA)));
+
+            retorno.add(avaliacaoCategoria);
+        }
+
+        return retorno;
     }
 
-    public Cursor getAllComentario() { //ALTERAR PARA RETORNAR LIST AO INVES DE CURSOR
+    public List<Comentario> getAllComentario() {
         database = this.getReadableDatabase();
-        Cursor cursor = database.query(TABLE_COMENTARIO, new String[] { KEY_ID, KEY_EMAILALUNO, KEY_ANO, KEY_SEMESTRE, KEY_TEXT }, null, null, null, null, null);
-        return cursor;
+        Cursor cursor = database.query(TABLE_COMENTARIO, new String[] { KEY_ID, KEY_IDAVALIACAO, KEY_ANO, KEY_SEMESTRE, KEY_TEXT }, null, null, null, null, null);
+
+        List<Comentario> retorno = new ArrayList<Comentario>();
+
+        while(cursor.moveToNext()){
+            Comentario comentario = new Comentario();
+            comentario.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
+            comentario.setIdAvaliacao(cursor.getInt(cursor.getColumnIndex(KEY_IDAVALIACAO)));
+            comentario.setAno(cursor.getString(cursor.getColumnIndex(KEY_ANO)));
+            comentario.setSemestre(cursor.getString(cursor.getColumnIndex(KEY_SEMESTRE)));
+            comentario.setTexto(cursor.getString(cursor.getColumnIndex(KEY_TEXT)));
+
+            retorno.add(comentario);
+        }
+
+        return retorno;
     }
 
-    public boolean updateNoticia(Aluno aluno) {
+    public boolean updateAluno(Aluno aluno) {
         database = this.getWritableDatabase();
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_EMAIL, aluno.getEmail());
@@ -367,8 +492,6 @@ public class Database extends SQLiteOpenHelper{
 
         return retorno;
     }
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-//problema aqui pois id é inteiro
 
     public Faculdade getFaculdade(int id){
         database = this.getWritableDatabase();
@@ -385,7 +508,6 @@ public class Database extends SQLiteOpenHelper{
 
         return retorno;
     }
-////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public Curso getCurso(String nome, int idFaculdade){
         database = this.getWritableDatabase();
@@ -401,7 +523,7 @@ public class Database extends SQLiteOpenHelper{
 
         return retorno;
     }
-////////////////////////////////////////////////////////mesmo pro de faculdade int id
+
     public CategoriaAvaliacaoCadeira getCategoriaAvaliacaoCadeira(int id){
         database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery("select * from categoriaAvaliacaoCadeira where id = " + id, null);
@@ -415,7 +537,7 @@ public class Database extends SQLiteOpenHelper{
 
         return retorno;
     }
- ////////////////////////////////////////mesmo pro de faculdade int id
+
 
     public MetodoAvaliacaoCadeira getMetodoAvaliacaoCadeira(int id){
         database = this.getWritableDatabase();
@@ -430,7 +552,7 @@ public class Database extends SQLiteOpenHelper{
 
         return retorno;
     }
- ///////////////////////////////////////mesmo pro int
+
 
     public Cadeira getCadeira(String nome, String nomeProfessor, String nomeCurso, int idFaculdade){
         database = this.getWritableDatabase();
@@ -466,7 +588,7 @@ public class Database extends SQLiteOpenHelper{
     }
 
 
-    /////////////////////////////////////////mesmo pro int id
+
 
     public AvaliacaoMetodo getAvaliacaoMetodo(int idAvaliacao){
         database = this.getWritableDatabase();
@@ -482,7 +604,7 @@ public class Database extends SQLiteOpenHelper{
 
         return retorno;
     }
-//////////////////////// zzzz mesmo pro
+
 
     public AvaliacaoCategoria getAvaliacaoCategoria(int idAvaliacao){
         database = this.getWritableDatabase();
@@ -498,7 +620,7 @@ public class Database extends SQLiteOpenHelper{
 
         return retorno;
     }
-///////////////////////////////////////////mesmo pro
+
 
     public Comentario getComentario(int id){
         database = this.getWritableDatabase();

@@ -2,7 +2,10 @@ package repositorio;
 
 import android.database.Cursor;
 
+import java.util.List;
+
 import database.Database;
+import objeto.Aluno;
 import objeto.Avaliacao;
 
 /**
@@ -24,7 +27,7 @@ public class RepositorioAvaliacao {
         db.deleteAvaliacao(avaliacao);
     }
 
-    public Cursor list(){
+    public List<Avaliacao> list(){
         return db.getAllAvaliacao();
     }
 

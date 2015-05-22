@@ -2,6 +2,8 @@ package repositorio;
 
 import android.database.Cursor;
 
+import java.util.List;
+
 import database.Database;
 import objeto.Comentario;
 
@@ -24,7 +26,7 @@ public class RepositorioComentario {
         db.deleteComentario(comentario);
     }
 
-    public Cursor list(){
+    public List<Comentario> list(){
         return db.getAllComentario();
     }
 

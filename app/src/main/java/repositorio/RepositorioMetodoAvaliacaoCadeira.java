@@ -2,6 +2,8 @@ package repositorio;
 
 import android.database.Cursor;
 
+import java.util.List;
+
 import database.Database;
 import objeto.MetodoAvaliacaoCadeira;
 
@@ -24,7 +26,7 @@ public class RepositorioMetodoAvaliacaoCadeira {
         db.deleteMetodoAvaliacaoCadeira(metodoAvaliacaoCadeira);
     }
 
-    public Cursor list(){
+    public List<MetodoAvaliacaoCadeira> list(){
         return db.getAllMetodoAvaliacaoCadeira();
     }
 

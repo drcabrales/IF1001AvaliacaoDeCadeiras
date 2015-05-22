@@ -2,6 +2,8 @@ package repositorio;
 
 import android.database.Cursor;
 
+import java.util.List;
+
 import database.Database;
 import objeto.Aluno;
 
@@ -24,7 +26,7 @@ public class RepositorioAluno {
         db.deleteAluno(aluno);
     }
 
-   public Cursor list(){
+   public List<Aluno> list(){
         return db.getAllAlunos();
     }
 
