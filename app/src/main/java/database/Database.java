@@ -10,6 +10,18 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import objetoParse.ParseFaculdade;
+import objetoParse.ParseAluno;
+import objetoParse.ParseAvaliacao;
+import objetoParse.ParseAvaliacaoCategoria;
+import objetoParse.ParseAvaliacaoMetodo;
+import objetoParse.ParseCadeira;
+import objetoParse.ParseCategoriaAvaliacaoCadeira;
+import objetoParse.ParseComentario;
+import objetoParse.ParseCurso;
+import objetoParse.ParseFaculdade;
+import objetoParse.ParseMetodoAvaliacaoCadeira;
+
 
 import objeto.Aluno;
 import objeto.Cadeira;
@@ -21,6 +33,13 @@ import objeto.MetodoAvaliacaoCadeira;
 import objeto.CategoriaAvaliacaoCadeira;
 import objeto.AvaliacaoMetodo;
 import objeto.Comentario;
+
+import com.parse.GetCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRole;
 
 /**
  * Created by Diogo on 03/05/2015.
@@ -136,6 +155,153 @@ public class Database extends SQLiteOpenHelper{
         onCreate(db);
     }
 
+
+    public void insertFaculdadeObj (ParseFaculdade parseFaculdade ){
+        ParseFaculdade faculdade = new ParseFaculdade ();
+        faculdade.put("nome",parseFaculdade.getNome() );
+        faculdade.put("sigla",parseFaculdade.getSigla());
+        faculdade.saveInBackground();
+    }
+
+    public void insertCursoObj (ParseCurso parseCurso ){
+        ParseCurso curso = new ParseCurso ();
+        curso.put("nome",parseCurso.getNome() );
+        curso.put("descricao",parseCurso.getDescricao());
+        curso.put("faculdade",parseCurso.getFaculdade());
+        curso.saveInBackground();
+    }
+
+    public void insertAlunoObj (ParseAluno parseAluno){
+        ParseAluno aluno = new ParseAluno();
+        aluno.put("nome",parseAluno.getNome());
+        aluno.put("email",parseAluno.getEmail());
+        aluno.put("senha",parseAluno.getSenha());
+        aluno.put("foto",parseAluno.getFoto());
+        aluno.put("curso",parseAluno.getCurso());
+        aluno.saveInBackground();
+    }
+
+    public void insertCategoriaAvaliacaoCadeiraObj (ParseCategoriaAvaliacaoCadeira parseCategoriaAvaliacaoCadeira){
+        ParseCategoriaAvaliacaoCadeira categoriaAvaliacaoCadeira = new ParseCategoriaAvaliacaoCadeira();
+        categoriaAvaliacaoCadeira.put("nome",parseCategoriaAvaliacaoCadeira.getNome());
+        categoriaAvaliacaoCadeira.saveInBackground();
+    }
+    public void insertMetodoAvaliacaoCadeiraObj (ParseMetodoAvaliacaoCadeira parseMetodoAvaliacaoCadeira){
+        ParseMetodoAvaliacaoCadeira metodoAvaliacaoCadeira = new ParseMetodoAvaliacaoCadeira();
+        metodoAvaliacaoCadeira.put("nome",parseMetodoAvaliacaoCadeira.getNome());
+        metodoAvaliacaoCadeira.saveInBackground();
+    }
+
+    public void insertCadeiraObj(ParseCadeira parseCadeira){
+        ParseCadeira cadeira = new ParseCadeira();
+        cadeira.put("nome",parseCadeira.getNome());
+        cadeira.put("nomeProfessor",parseCadeira.getNomeProfessor());
+        cadeira.put("curso",parseCadeira.getCurso());
+        cadeira.saveInBackground();
+    }
+
+    public void insertAvaliacaoObj (ParseAvaliacao parseAvaliacao){
+        ParseAvaliacao avaliacao = new ParseAvaliacao();
+        avaliacao.put("aluno",parseAvaliacao.getAluno());
+        avaliacao.put("cadeira",parseAvaliacao.getCadeira());
+        avaliacao.saveInBackground();
+    }
+
+    public void insertAvaliacaoMetodoObj (ParseAvaliacaoMetodo parseAvaliacaoMetodo){
+        ParseAvaliacaoMetodo avaliacaoMetodo = new ParseAvaliacaoMetodo();
+        avaliacaoMetodo.put("avaliacao",parseAvaliacaoMetodo.getAvaliacao());
+        avaliacaoMetodo.put("metodoAvaliacaoCadeira",parseAvaliacaoMetodo.getMetodoAvaliacaoCadeira());
+        avaliacaoMetodo.saveInBackground();
+
+    }
+
+    public void insertAvaliacaoCategoriaObj (ParseAvaliacaoCategoria parseAvaliacaoCategoria){
+        ParseAvaliacaoCategoria avaliacaoCategoria = new ParseAvaliacaoCategoria();
+        avaliacaoCategoria.put("avaliacao",parseAvaliacaoCategoria.getAvaliacao());
+        avaliacaoCategoria.put("categoriaAvaliacaoCadeira",parseAvaliacaoCategoria.getCategoriaAvaliacaoCadeira());
+        avaliacaoCategoria.put("nota",parseAvaliacaoCategoria.getNota());
+        avaliacaoCategoria.saveInBackground();
+
+    }
+
+    public void insertComentarioObj (ParseComentario parseComentario){
+        ParseComentario comentario = new ParseComentario();
+        comentario.put("avaliacao",parseComentario.getAvaliacao());
+        comentario.put("ano",parseComentario.getAno());
+        comentario.put("semestre",parseComentario.getSemestre());
+        comentario.put("texto",parseComentario.getTexto());
+        comentario.saveInBackground();
+    }
+
+
+    public void deleteFaculdadeObj (ParseFaculdade parseFaculdade){
+        parseFaculdade.deleteInBackground();
+    }
+
+    public void deleteAlunoObj (ParseAluno parseAluno){
+        parseAluno.deleteInBackground();
+    }
+
+    public void deleteCursoObj (ParseCurso parseCurso){
+        parseCurso.deleteInBackground();
+    }
+
+    public void deleteCategoriaAvaliacaoCadeiraObj (ParseCategoriaAvaliacaoCadeira parseCategoriaAvaliacaoCadeira){
+        parseCategoriaAvaliacaoCadeira.deleteInBackground();
+    }
+
+    public void deleteMetodoAvaliacaoCadeiraObj (ParseMetodoAvaliacaoCadeira parseMetodoAvaliacaoCadeira){
+        parseMetodoAvaliacaoCadeira.deleteInBackground();
+    }
+
+    public  void deleteCadeiraObj (ParseCadeira parseCadeira){
+        parseCadeira.deleteInBackground();
+    }
+
+    public void deleteAvaliacaoObj (ParseAvaliacao parseAvaliacao){
+        parseAvaliacao.deleteInBackground();
+    }
+
+    public void deleteAvaliacaoMetodoObj (ParseAvaliacaoMetodo parseAvaliacaoMetodo){
+        parseAvaliacaoMetodo.deleteInBackground();
+    }
+
+    public void deleteAvaliacaoCategoriaObj (ParseAvaliacaoCategoria parseAvaliacaoCategoria){
+        parseAvaliacaoCategoria.deleteInBackground();
+    }
+
+    public void deleteComentarioObj (ParseComentario parseComentario){
+        parseComentario.deleteInBackground();
+    }
+
+    public ParseFaculdade getParseFaculdadeObj (String id){
+        ParseFaculdade retorno = new ParseFaculdade();
+        final ParseFaculdade[] aux = {new ParseFaculdade()};
+        final boolean[] auxx = new boolean[1];
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Faculdade");
+        query.whereEqualTo("objectId", id);
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (object == null) {
+                    Log.d("id", "The getFirst request failed.");
+                    auxx[0] = false;
+
+                    //caso n ache fazer algo
+                } else {
+                    Log.d("id", "The getFirst Success.");
+                    auxx[0] = true;
+                    aux[0] = (ParseFaculdade) object;
+
+                }
+            }
+        });
+
+        if (auxx[0] == true ){
+            retorno = aux[0];
+        }
+        return retorno;
+    }
+
     public long insertFaculdade (Faculdade faculdade ){
         database = this.getWritableDatabase();
         ContentValues initialValues = new ContentValues();
@@ -225,6 +391,9 @@ public class Database extends SQLiteOpenHelper{
         initialValues.put(KEY_TEXT, Comentario.getTexto());
         return database.insert(TABLE_COMENTARIO, null, initialValues);
     }
+
+
+
 
     public List<Aluno> getAllAlunos() {
         database = this.getReadableDatabase();

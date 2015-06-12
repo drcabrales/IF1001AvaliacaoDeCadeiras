@@ -1,13 +1,20 @@
 package ufpe.com.br.avaliacaodecadeiras;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseRole;
-
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import org.json.JSONObject;
-
+import com.parse.*;
+import java.util.Arrays;
+import java.util.List;
+import android.content.Context;
+import database.Database;
+import objeto.Faculdade;
 import objetoParse.ParseAluno;
 import objetoParse.ParseAvaliacao;
 import objetoParse.ParseAvaliacaoCategoria;
@@ -18,7 +25,11 @@ import objetoParse.ParseComentario;
 import objetoParse.ParseCurso;
 import objetoParse.ParseFaculdade;
 import objetoParse.ParseMetodoAvaliacaoCadeira;
+import repositorio.RepositorioCursoObj;
+import repositorio.RepositorioFaculdadeObj;
 
+import android.widget.TextView;
+import android.widget.Toast;
 /**
  * Created by Diogo on 02/06/2015.
  */
@@ -43,16 +54,117 @@ public class ParseApplication extends Application {
         ParseObject.registerSubclass(ParseAvaliacaoMetodo.class);
         ParseObject.registerSubclass(ParseComentario.class);
 
+        Database db = new Database(this);
+
         //inicializando
         Parse.initialize(this, YOUR_APPLICATION_ID, YOUR_CLIENT_KEY);
 
-        //testando
-        ParseFaculdade faculdade = new ParseFaculdade("Universidade Federal de Pernambuco", "UFPE");
-        faculdade.saveInBackground();
+/*
+        RepositorioFaculdadeObj repositorioFaculdadeObj = new RepositorioFaculdadeObj(db) ;
+        ParseFaculdade facull = new ParseFaculdade();
+        facull.setNome("Universidade Federal do Rio de Janeiro");
+        facull.setSigla("UFRJ");
+        //repositorioFaculdadeObj.insert(facull);
 
-        ParseCurso curso = new ParseCurso("Ciência da Computação", "Um curso bacana", faculdade);
+        RepositorioCursoObj repositorioCursoObj = new RepositorioCursoObj(db) ;
+        ParseCurso curso = new ParseCurso();
+        curso.setNome("Mat");
+        curso.setDescricao("not bad");
+        curso.setFaculdade(facull);
+        repositorioCursoObj.insert(curso);
+*/
+
+        RepositorioFaculdadeObj repositorioFaculdadeObj = new RepositorioFaculdadeObj(db);
+        ParseFaculdade faculdade = new ParseFaculdade();
+        faculdade = repositorioFaculdadeObj.get("1dMYXhdfvn");
+        ParseCurso curso = new ParseCurso("Ciência da Computação3", "Um curso bacana2", faculdade );
         curso.saveInBackground();
 
+ //pega apenas 1
+
+/*
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Faculdade");
+        query.whereEqualTo("sigla", "UFPE");
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (object == null) {
+
+                    Log.d("nome", "The getFirst request failed.");
+
+
+                } else {
+
+                    Log.d("nome", "The getFirst request failed.");
+                    //String x = String.valueOf(object.get("sigla"));
+                    //String x = String.valueOf(object.get("ObjectId"));
+                    ParseFaculdade y = (ParseFaculdade) object;
+
+                    ParseCurso curso = new ParseCurso("Ciência da Computação3", "Um curso bacana2", y );
+                    curso.saveInBackground();
+
+                }
+            }
+        });
+
+*/
+        //delete
+
+        /*
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Faculdade");
+        query.whereEqualTo("sigla", "UFPE");
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (object == null) {
+
+                    Log.d("nome", "The getFirst request failed.");
+
+
+                } else {
+
+                    Log.d("nome", "The getFirst request failed.");
+                    object.deleteInBackground();
+                }
+            }
+        });
+
+*/
+//pega lista
+        /*
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Faculdade");
+        query.whereEqualTo("sigla", "UFPE");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> scoreList, ParseException e) {
+                if (e == null) {
+                    Log.d("nome", "Retrieved " + scoreList.size() + " nomes");
+
+                    Context contexto = getApplicationContext();
+                    String boy = String.valueOf(scoreList.get(1));
+                    int duracao = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(contexto, boy,duracao); toast.show();
+
+                } else {
+                    Log.d("score", "Error: " + e.getMessage());
+                }
+            }
+        });
+*/
+
+
+        // testando
+      //  ParseFaculdade faculdade = new ParseFaculdade("Universidade Federal de Pernambuco", "UFPE");
+      //  faculdade.saveInBackground();
+        //faculdade.deleteInBackground();
+
+        //ParseCurso curso = new ParseCurso("Ciência da Computação2", "Um curso bacana", faculdade );
+        //curso.saveInBackground();
+
+
+
+       // ParseCurso curso = new ParseCurso("Ciência da Computação2", "Um curso bacana", faculdade.getObjectId() );
+     //   curso.saveInBackground();
+
+
+/*
         ParseCadeira cadeira = new ParseCadeira("Programação 3", "Leopoldo", curso);
         cadeira.saveInBackground();
 
@@ -77,6 +189,8 @@ public class ParseApplication extends Application {
         ParseComentario comentario = new ParseComentario(avaliacao, "2015", "2", "Vale muito a pena pagar!");
         comentario.saveInBackground();
 
-
+*/
     }
+
+
 }

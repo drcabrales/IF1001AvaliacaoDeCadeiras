@@ -18,6 +18,7 @@ public class RepositorioFaculdade {
         this.db = db;
     }
 
+
     public void insert(Faculdade faculdade){
         db.insertFaculdade(faculdade);
     }

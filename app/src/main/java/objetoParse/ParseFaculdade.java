@@ -32,4 +32,5 @@ public class ParseFaculdade extends ParseObject{
         put("sigla", sigla);
     }
 
+
 }
