@@ -188,7 +188,7 @@ public class Database extends SQLiteOpenHelper{
     }
     public void insertMetodoAvaliacaoCadeiraObj (ParseMetodoAvaliacaoCadeira parseMetodoAvaliacaoCadeira){
         ParseMetodoAvaliacaoCadeira metodoAvaliacaoCadeira = new ParseMetodoAvaliacaoCadeira();
-        metodoAvaliacaoCadeira.put("nome",parseMetodoAvaliacaoCadeira.getNome());
+        metodoAvaliacaoCadeira.put("nome", parseMetodoAvaliacaoCadeira.getNome());
         metodoAvaliacaoCadeira.saveInBackground();
     }
 
@@ -400,6 +400,18 @@ public class Database extends SQLiteOpenHelper{
             e.printStackTrace();
         }
         return retorno;
+    }
+
+    public ArrayList<ParseObject> getAll (String tabela){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(tabela);
+        ArrayList<ParseObject> lista = new ArrayList<ParseObject>();
+        try {
+            lista = (ArrayList<ParseObject>) query.find();
+        } catch (com.parse.ParseException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
     }
 
     public long insertFaculdade (Faculdade faculdade ){

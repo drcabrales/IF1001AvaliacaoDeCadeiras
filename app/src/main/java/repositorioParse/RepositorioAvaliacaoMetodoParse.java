@@ -1,5 +1,8 @@
 package repositorioParse;
 
+import com.parse.ParseObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import objetoParse.ParseAvaliacao;
@@ -27,12 +30,9 @@ public class RepositorioAvaliacaoMetodoParse {
     public void delete(ParseAvaliacaoMetodo parseAvaliacaoMetodo){
         db.deleteAvaliacaoMetodoObj(parseAvaliacaoMetodo);
     }
-/*
-    public List<ParseAvaliacaoMetodo> list(){
-        return db.getAllParseAvaliacaoMetodoObj();
+    public ArrayList<ParseObject> getAll(){
+        return db.getAll("AvaliacaoMetodo");
     }
-
-*/
     public ParseAvaliacaoMetodo get(ParseAvaliacao parseAvaliacao, ParseMetodoAvaliacaoCadeira parseMetodoAvaliacaoCadeira){
         return db.getParseAvaliacaoMetodoObj(parseAvaliacao, parseMetodoAvaliacaoCadeira);
     }

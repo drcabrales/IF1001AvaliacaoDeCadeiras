@@ -2,8 +2,14 @@ package ufpe.com.br.avaliacaodecadeiras;
 
 import android.app.Application;
 
+import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import database.Database;
 import objetoParse.ParseAluno;
@@ -18,6 +24,7 @@ import objetoParse.ParseFaculdade;
 import objetoParse.ParseMetodoAvaliacaoCadeira;
 import repositorio.RepositorioAluno;
 import repositorio.RepositorioCategoriaAvaliacaoCadeira;
+import repositorio.RepositorioFaculdade;
 import repositorio.RepositorioMetodoAvaliacaoCadeira;
 import repositorioParse.RepositorioAlunoParse;
 import repositorioParse.RepositorioAvaliacaoCategoriaParse;
@@ -118,9 +125,12 @@ public class ParseApplication extends Application {
         comentario = repositorioComentarioParse.get(avaliacao);
 */
 
+        /*
+        RepositorioFaculdadeParse repositorioCategoriaAvaliacaoCadeira = new RepositorioFaculdadeParse(db);
+        ArrayList<ParseObject> x = repositorioCategoriaAvaliacaoCadeira.getAll();
 
-
-
+        ParseComentario comentario = new ParseComentario();
+*/
 
 
  //pega apenas 1
@@ -172,24 +182,16 @@ public class ParseApplication extends Application {
 
 */
 //pega lista
-        /*
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Faculdade");
-        query.whereEqualTo("sigla", "UFPE");
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> scoreList, ParseException e) {
-                if (e == null) {
-                    Log.d("nome", "Retrieved " + scoreList.size() + " nomes");
+/*
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Curso");
+        ArrayList<ParseObject> lista = new ArrayList<ParseObject>();
+        try {
+            lista = (ArrayList<ParseObject>) query.find();
+        } catch (com.parse.ParseException e) {
+            e.printStackTrace();
+        }
 
-                    Context contexto = getApplicationContext();
-                    String boy = String.valueOf(scoreList.get(1));
-                    int duracao = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(contexto, boy,duracao); toast.show();
 
-                } else {
-                    Log.d("score", "Error: " + e.getMessage());
-                }
-            }
-        });
 */
 
 

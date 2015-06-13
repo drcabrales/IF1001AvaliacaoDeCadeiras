@@ -1,6 +1,9 @@
 package repositorioParse;
 
 
+import com.parse.ParseObject;
+
+import java.util.ArrayList;
 import java.util.List;
 import objetoParse.ParseCurso;
 import database.Database;
@@ -26,12 +29,11 @@ public class RepositorioCursoParse {
     public void delete(ParseCurso parseCurso){
         db.deleteCursoObj(parseCurso);
     }
-/*
-    public List<ParseCurso> list(){
-        return db.getAllParseCursoObj();
+
+    public ArrayList<ParseObject> getAll(){
+        return db.getAll("Curso");
     }
 
-*/
 
     public ParseCurso get(String nome, ParseFaculdade parseFaculdade){
         return db.getParseCursoObj(nome, parseFaculdade);

@@ -1,5 +1,8 @@
 package repositorioParse;
 
+import com.parse.ParseObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import database.Database;
@@ -25,11 +28,9 @@ public class RepositorioAlunoParse {
     public void delete(ParseAluno parseAluno){
         db.deleteAlunoObj(parseAluno);
     }
-/*
-    public List<ParseAluno> list(){
-        return db.getAllParseAlunoObj();
+    public ArrayList<ParseObject> getAll(){
+        return db.getAll("Aluno");
     }
-*/
     public ParseAluno get(String email){
         return db.getParseAlunoObj(email);
     }

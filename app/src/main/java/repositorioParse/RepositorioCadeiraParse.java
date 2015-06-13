@@ -1,5 +1,8 @@
 package repositorioParse;
 
+import com.parse.ParseObject;
+
+import java.util.ArrayList;
 import java.util.List;
 import objetoParse.ParseCadeira;
 import database.Database;
@@ -26,11 +29,10 @@ public class RepositorioCadeiraParse {
     public void delete(ParseCadeira parseCadeira){
         db.deleteCadeiraObj(parseCadeira);
     }
-/*
-    public List<ParseCadeira> list(){
-        return db.getAllParseCadeiraObj();
+
+    public ArrayList<ParseObject> getAll(){
+        return db.getAll("Cadeira");
     }
-*/
     public ParseCadeira get(ParseCurso parseCurso, String nome, String nomeProfessor){
         return db.getParseCadeiraObj(parseCurso, nome, nomeProfessor);
     }

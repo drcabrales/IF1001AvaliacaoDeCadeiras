@@ -1,5 +1,8 @@
 package repositorioParse;
 
+import com.parse.ParseObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import database.Database;
@@ -24,12 +27,11 @@ public class RepositorioFaculdadeParse {
     public void delete(ParseFaculdade parseFaculdade){
         db.deleteFaculdadeObj(parseFaculdade);
     }
-/*
-    public List<ParseFaculdade> list(){
-        return db.getAllParseFaculdadeObj();
+
+    public ArrayList<ParseObject> getAll(){
+        return db.getAll("Faculdade");
     }
 
-*/
     public ParseFaculdade get(String sigla){
         return db.getParseFaculdadeObj(sigla);
     }
