@@ -27,11 +27,11 @@ public class RepositorioMetodoAvalicaoCadeiraParse {
     public List<ParseMetodoAvaliacaoCadeir> list(){
         return db.getAllParseMetodoAvaliacaoCadeirObj();
     }
-
-
-    public ParseMetodoAvaliacaoCadeir get(int id){
-        return db.getParseMetodoAvaliacaoCadeirObj(id);
-    }
 */
+
+    public ParseMetodoAvaliacaoCadeira get(String nome){
+        return db.getParseMetodoAvaliacaoCadeirObj(nome);
+    }
+
 
 }

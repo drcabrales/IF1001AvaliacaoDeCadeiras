@@ -29,10 +29,10 @@ public class RepositorioAlunoParse {
     public List<ParseAluno> list(){
         return db.getAllParseAlunoObj();
     }
-
+*/
     public ParseAluno get(String email){
         return db.getParseAlunoObj(email);
     }
-*/
+
 
 }

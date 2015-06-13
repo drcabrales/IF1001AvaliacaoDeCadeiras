@@ -158,8 +158,8 @@ public class Database extends SQLiteOpenHelper{
 
     public void insertFaculdadeObj (ParseFaculdade parseFaculdade ){
         ParseFaculdade faculdade = new ParseFaculdade ();
-        faculdade.put("nome",parseFaculdade.getNome() );
-        faculdade.put("sigla",parseFaculdade.getSigla());
+        faculdade.put("nome", parseFaculdade.getNome());
+        faculdade.put("sigla", parseFaculdade.getSigla());
         faculdade.saveInBackground();
     }
 
@@ -276,10 +276,126 @@ public class Database extends SQLiteOpenHelper{
 
     public ParseFaculdade getParseFaculdadeObj (String sigla){
         ParseFaculdade retorno = new ParseFaculdade();
+        final ParseFaculdade[] aux = {new ParseFaculdade()};
+        final boolean[] auxx = new boolean[1];
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Faculdade");
         query.whereEqualTo("sigla", sigla);
         try {
             retorno = (ParseFaculdade) query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
+    public ParseCategoriaAvaliacaoCadeira getParseCategoriaAvaliacaoCadeiraObj (String nome){
+        ParseCategoriaAvaliacaoCadeira retorno = new ParseCategoriaAvaliacaoCadeira();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("CategoriaAvaliacaoCadeira");
+        query.whereEqualTo("nome", nome);
+        try {
+            retorno = (ParseCategoriaAvaliacaoCadeira) query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
+    public ParseComentario getParseComentarioObj (ParseAvaliacao parseAvaliacao){
+        ParseComentario retorno = new ParseComentario();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Comentario");
+        query.whereEqualTo("avaliacao", parseAvaliacao);
+        try {
+            retorno = (ParseComentario) query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
+    public ParseCurso getParseCursoObj (String nome, ParseFaculdade parseFaculdade){
+        ParseCurso retorno = new ParseCurso();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Curso");
+        query.whereEqualTo("nome", nome);
+        query.whereEqualTo("faculdade",parseFaculdade);
+        try {
+            retorno = (ParseCurso) query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
+    public ParseMetodoAvaliacaoCadeira getParseMetodoAvaliacaoCadeirObj (String nome){
+        ParseMetodoAvaliacaoCadeira retorno = new ParseMetodoAvaliacaoCadeira();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("MetodoAvaliacaoCadeira");
+        query.whereEqualTo("nome", nome);
+        try {
+            retorno = (ParseMetodoAvaliacaoCadeira) query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
+    public ParseAluno getParseAlunoObj (String email){
+        ParseAluno retorno = new ParseAluno();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Aluno");
+        query.whereEqualTo("email", email);
+        try {
+            retorno = (ParseAluno) query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
+    public ParseAvaliacao getParseAvaliacaoObj (ParseAluno aluno, ParseCadeira cadeira){
+        ParseAvaliacao retorno = new ParseAvaliacao();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Avaliacao");
+        query.whereEqualTo("aluno", aluno);
+        query.whereEqualTo("cadeira", cadeira);
+        try {
+            retorno = (ParseAvaliacao) query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
+    public ParseAvaliacaoCategoria getParseAvaliacaoCategoriaObj (ParseAvaliacao avaliacao, ParseCategoriaAvaliacaoCadeira categoriaAvaliacaoCadeira){
+        ParseAvaliacaoCategoria retorno = new ParseAvaliacaoCategoria();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("AvaliacaoCategoria");
+        query.whereEqualTo("avaliacao", avaliacao);
+        query.whereEqualTo("categoriaAvaliacaoCadeira", categoriaAvaliacaoCadeira);
+        try {
+            retorno = (ParseAvaliacaoCategoria) query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
+    public ParseAvaliacaoMetodo getParseAvaliacaoMetodoObj (ParseAvaliacao avaliacao, ParseMetodoAvaliacaoCadeira metodoAvaliacaoCadeira){
+        ParseAvaliacaoMetodo retorno = new ParseAvaliacaoMetodo();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("AvaliacaoMetodo");
+        query.whereEqualTo("avaliacao", avaliacao);
+        query.whereEqualTo("metodoAvaliacaoCadeira", metodoAvaliacaoCadeira);
+        try {
+            retorno = (ParseAvaliacaoMetodo) query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
+    public ParseCadeira getParseCadeiraObj (ParseCurso curso, String nome, String professor){
+        ParseCadeira retorno = new ParseCadeira();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Cadeira");
+        query.whereEqualTo("curso", curso);
+        query.whereEqualTo("nome", nome);
+        query.whereEqualTo("nomeProfessor", professor);
+        try {
+            retorno = (ParseCadeira) query.getFirst();
         } catch (ParseException e) {
             e.printStackTrace();
         }

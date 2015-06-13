@@ -4,6 +4,7 @@ package repositorioParse;
 import java.util.List;
 import objetoParse.ParseCurso;
 import database.Database;
+import objetoParse.ParseFaculdade;
 
 /**
  * Created by ezequiel on 05/06/2015.
@@ -30,10 +31,11 @@ public class RepositorioCursoParse {
         return db.getAllParseCursoObj();
     }
 
-
-    public ParseCurso get(String nome, int idFaculdade){
-        return db.getParseCursoObj(nome, idFaculdade);
-    }
 */
+
+    public ParseCurso get(String nome, ParseFaculdade parseFaculdade){
+        return db.getParseCursoObj(nome, parseFaculdade);
+    }
+
 
 }

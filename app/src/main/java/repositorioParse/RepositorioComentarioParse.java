@@ -2,6 +2,8 @@ package repositorioParse;
 
 
 import java.util.List;
+
+import objetoParse.ParseAvaliacao;
 import objetoParse.ParseComentario;
 import database.Database;
 
@@ -29,12 +31,12 @@ public class RepositorioComentarioParse {
     public List<ParseComentario> list(){
         return db.getAllParseComentarioObj();
     }
-
-
-    public ParseComentario get(int id){
-        return db.getParseComentarioObj(id);
-    }
 */
+
+    public ParseComentario get(ParseAvaliacao parseAvaliacao){
+        return db.getParseComentarioObj(parseAvaliacao);
+    }
+
 
 }
 

@@ -5,6 +5,7 @@ import objetoParse.ParseCadeira;
 import database.Database;
 
 import database.Database;
+import objetoParse.ParseCurso;
 
 /**
  * Created by ezequiel on 05/06/2015.
@@ -29,10 +30,10 @@ public class RepositorioCadeiraParse {
     public List<ParseCadeira> list(){
         return db.getAllParseCadeiraObj();
     }
-
-    public ParseCadeira get(String nome, String nomeProfessor, String nomeCurso, int idFaculdade){
-        return db.getParseCadeiraObj(nome, nomeProfessor, nomeCurso, idFaculdade);
+*/
+    public ParseCadeira get(ParseCurso parseCurso, String nome, String nomeProfessor){
+        return db.getParseCadeiraObj(parseCurso, nome, nomeProfessor);
     }
 
-*/
+
 }

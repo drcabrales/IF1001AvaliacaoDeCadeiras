@@ -16,7 +16,19 @@ import objetoParse.ParseComentario;
 import objetoParse.ParseCurso;
 import objetoParse.ParseFaculdade;
 import objetoParse.ParseMetodoAvaliacaoCadeira;
+import repositorio.RepositorioAluno;
+import repositorio.RepositorioCategoriaAvaliacaoCadeira;
+import repositorio.RepositorioMetodoAvaliacaoCadeira;
+import repositorioParse.RepositorioAlunoParse;
+import repositorioParse.RepositorioAvaliacaoCategoriaParse;
+import repositorioParse.RepositorioAvaliacaoMetodoParse;
+import repositorioParse.RepositorioAvaliacaoParse;
+import repositorioParse.RepositorioCadeiraParse;
+import repositorioParse.RepositorioCategoriaAvaliacaoCadeiraParse;
+import repositorioParse.RepositorioComentarioParse;
+import repositorioParse.RepositorioCursoParse;
 import repositorioParse.RepositorioFaculdadeParse;
+import repositorioParse.RepositorioMetodoAvalicaoCadeiraParse;
 
 /**
  * Created by Diogo on 02/06/2015.
@@ -62,11 +74,54 @@ public class ParseApplication extends Application {
         repositorioCursoObj.insert(curso);
 */
 
-        RepositorioFaculdadeParse repositorioFaculdadeObj = new RepositorioFaculdadeParse(db);
+        /*
+        RepositorioFaculdadeParse repositorioFaculdade = new RepositorioFaculdadeParse(db);
         ParseFaculdade faculdade = new ParseFaculdade();
-        faculdade = repositorioFaculdadeObj.get("UFPE");
-        ParseCurso curso = new ParseCurso("Ciência da Computação3", "Um curso bacana2", faculdade );
-        curso.saveInBackground();
+        faculdade = repositorioFaculdade.get("UFPE");
+       // ParseCurso curso = new ParseCurso("Ciência da Computação3", "Um curso bacana2", faculdade );
+      //  curso.saveInBackground();
+
+        RepositorioCategoriaAvaliacaoCadeiraParse repositorioCategoriaAvaliacaoCadeira = new RepositorioCategoriaAvaliacaoCadeiraParse(db);
+        ParseCategoriaAvaliacaoCadeira categoriaAvaliacaoCadeira = new ParseCategoriaAvaliacaoCadeira();
+        categoriaAvaliacaoCadeira = repositorioCategoriaAvaliacaoCadeira.get("Dificuldade");
+
+        RepositorioAlunoParse repositorioAlunoParse = new RepositorioAlunoParse(db);
+        ParseAluno aluno = new ParseAluno();
+        aluno = repositorioAlunoParse.get("drc2@cin.ufpe.br");
+
+        RepositorioCursoParse repositorioCursoParse = new RepositorioCursoParse(db);
+        ParseCurso curso = new ParseCurso();
+        curso = repositorioCursoParse.get("Ciência da Computação",faculdade);
+
+        RepositorioMetodoAvalicaoCadeiraParse repositorioMetodoAvalicaoCadeiraParse = new RepositorioMetodoAvalicaoCadeiraParse(db);
+        ParseMetodoAvaliacaoCadeira metodoAvaliacao = new ParseMetodoAvaliacaoCadeira();
+        metodoAvaliacao = repositorioMetodoAvalicaoCadeiraParse.get("Prova");
+
+        RepositorioCadeiraParse repositorioCadeiraParse = new RepositorioCadeiraParse(db);
+        ParseCadeira cadeira = new ParseCadeira();
+        cadeira = repositorioCadeiraParse.get(curso, "Programação 3","Leopoldo");
+
+        RepositorioAvaliacaoParse repositorioAvaliacaoParse = new RepositorioAvaliacaoParse(db);
+        ParseAvaliacao avaliacao = new ParseAvaliacao();
+        avaliacao = repositorioAvaliacaoParse.get(aluno ,cadeira);
+
+        RepositorioAvaliacaoCategoriaParse repositorioAvaliacaoCategoriaParse = new RepositorioAvaliacaoCategoriaParse(db);
+        ParseAvaliacaoCategoria avaliacaoCategoria = new ParseAvaliacaoCategoria();
+        avaliacaoCategoria = repositorioAvaliacaoCategoriaParse.get(avaliacao, categoriaAvaliacaoCadeira);
+
+        RepositorioAvaliacaoMetodoParse repositorioAvaliacaoMetodoParse = new RepositorioAvaliacaoMetodoParse(db);
+        ParseAvaliacaoMetodo avaliacaoMetodo = new ParseAvaliacaoMetodo();
+        avaliacaoMetodo = repositorioAvaliacaoMetodoParse.get(avaliacao, metodoAvaliacao);
+
+        RepositorioComentarioParse repositorioComentarioParse = new RepositorioComentarioParse(db);
+        ParseComentario comentario = new ParseComentario();
+        comentario = repositorioComentarioParse.get(avaliacao);
+*/
+
+
+
+
+
 
  //pega apenas 1
 

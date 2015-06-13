@@ -28,10 +28,10 @@ public class RepositorioCategoriaAvaliacaoCadeiraParse {
         return db.getAllParseCategoriaAvaliacaoCadeiraObj();
     }
 
-
-    public ParseCategoriaAvaliacaoCadeira get(int id){
-        return db.getParseCategoriaAvaliacaoCadeiraObj(id);
-    }
 */
+    public ParseCategoriaAvaliacaoCadeira get(String nome){
+        return db.getParseCategoriaAvaliacaoCadeiraObj(nome);
+    }
+
 
 }

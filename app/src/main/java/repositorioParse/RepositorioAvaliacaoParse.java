@@ -2,8 +2,9 @@ package repositorioParse;
 
 import java.util.List;
 import database.Database;
+import objetoParse.ParseAluno;
 import objetoParse.ParseAvaliacao;
-
+import objetoParse.ParseCadeira;
 
 
 /**
@@ -29,11 +30,11 @@ public class RepositorioAvaliacaoParse {
     public List<ParseAvaliacao> list(){
         return db.getAllParseAvaliacaoObj();
     }
-
-
-    public ParseAvaliacao get(int id){
-        return db.getParseAvaliacaooObj(id);
-    }
 */
+
+    public ParseAvaliacao get(ParseAluno parseAluno, ParseCadeira parseCadeira){
+        return db.getParseAvaliacaoObj(parseAluno,parseCadeira);
+    }
+
 
 }

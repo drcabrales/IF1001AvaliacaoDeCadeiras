@@ -1,8 +1,11 @@
 package repositorioParse;
 
 import java.util.List;
+
+import objetoParse.ParseAvaliacao;
 import objetoParse.ParseAvaliacaoMetodo;
 import database.Database;
+import objetoParse.ParseMetodoAvaliacaoCadeira;
 
 /**
  * Created by ezequiel on 05/06/2015.
@@ -29,10 +32,10 @@ public class RepositorioAvaliacaoMetodoParse {
         return db.getAllParseAvaliacaoMetodoObj();
     }
 
-
-    public ParseAvaliacaoCategoria get(int idAvaliacao){
-        return db.getParseAvaliacaoCategoriaObj(idAvaliacao);
-    }
 */
+    public ParseAvaliacaoMetodo get(ParseAvaliacao parseAvaliacao, ParseMetodoAvaliacaoCadeira parseMetodoAvaliacaoCadeira){
+        return db.getParseAvaliacaoMetodoObj(parseAvaliacao, parseMetodoAvaliacaoCadeira);
+    }
+
 
 }
