@@ -64,7 +64,7 @@ public class ParseApplication extends Application {
 
         RepositorioFaculdadeParse repositorioFaculdadeObj = new RepositorioFaculdadeParse(db);
         ParseFaculdade faculdade = new ParseFaculdade();
-        faculdade = repositorioFaculdadeObj.get("1dMYXhdfvn");
+        faculdade = repositorioFaculdadeObj.get("UFPE");
         ParseCurso curso = new ParseCurso("Ciência da Computação3", "Um curso bacana2", faculdade );
         curso.saveInBackground();
 

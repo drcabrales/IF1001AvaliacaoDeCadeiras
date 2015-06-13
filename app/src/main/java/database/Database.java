@@ -274,30 +274,14 @@ public class Database extends SQLiteOpenHelper{
         parseComentario.deleteInBackground();
     }
 
-    public ParseFaculdade getParseFaculdadeObj (String id){
+    public ParseFaculdade getParseFaculdadeObj (String sigla){
         ParseFaculdade retorno = new ParseFaculdade();
-        final ParseFaculdade[] aux = {new ParseFaculdade()};
-        final boolean[] auxx = new boolean[1];
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Faculdade");
-        query.whereEqualTo("objectId", id);
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (object == null) {
-                    Log.d("id", "The getFirst request failed.");
-                    auxx[0] = false;
-
-                    //caso n ache fazer algo
-                } else {
-                    Log.d("id", "The getFirst Success.");
-                    auxx[0] = true;
-                    aux[0] = (ParseFaculdade) object;
-
-                }
-            }
-        });
-
-        if (auxx[0] == true ){
-            retorno = aux[0];
+        query.whereEqualTo("sigla", sigla);
+        try {
+            retorno = (ParseFaculdade) query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         return retorno;
     }

@@ -30,8 +30,8 @@ public class RepositorioFaculdadeParse {
     }
 
 */
-    public ParseFaculdade get(String id){
-        return db.getParseFaculdadeObj(id);
+    public ParseFaculdade get(String sigla){
+        return db.getParseFaculdadeObj(sigla);
     }
 
 
