@@ -1,4 +1,4 @@
-package repositorio;
+package repositorioParse;
 
 import java.util.List;
 
@@ -8,12 +8,12 @@ import objetoParse.ParseAluno;
 /**
  * Created by ezequiel on 04/06/2015.
  */
-public class RepositorioAlunoObj {
+public class RepositorioAlunoParse {
 
 
     private Database db;
 
-    public RepositorioAlunoObj(Database db){
+    public RepositorioAlunoParse(Database db){
         this.db = db;
     }
 

@@ -1,4 +1,4 @@
-package repositorio;
+package repositorioParse;
 
 import java.util.List;
 import objetoParse.ParseAvaliacaoMetodo;
@@ -7,13 +7,13 @@ import database.Database;
 /**
  * Created by ezequiel on 05/06/2015.
  */
-public class RepositorioAvaliacaoMetodoObj {
+public class RepositorioAvaliacaoMetodoParse {
 
 
 
     private Database db;
 
-    public RepositorioAvaliacaoMetodoObj(Database db){
+    public RepositorioAvaliacaoMetodoParse(Database db){
         this.db = db;
     }
 

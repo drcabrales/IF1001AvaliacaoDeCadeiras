@@ -1,20 +1,11 @@
 package ufpe.com.br.avaliacaodecadeiras;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
-import com.parse.ParseRole;
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import org.json.JSONObject;
-import com.parse.*;
-import java.util.Arrays;
-import java.util.List;
-import android.content.Context;
+
 import database.Database;
-import objeto.Faculdade;
 import objetoParse.ParseAluno;
 import objetoParse.ParseAvaliacao;
 import objetoParse.ParseAvaliacaoCategoria;
@@ -25,11 +16,8 @@ import objetoParse.ParseComentario;
 import objetoParse.ParseCurso;
 import objetoParse.ParseFaculdade;
 import objetoParse.ParseMetodoAvaliacaoCadeira;
-import repositorio.RepositorioCursoObj;
-import repositorio.RepositorioFaculdadeObj;
+import repositorioParse.RepositorioFaculdadeParse;
 
-import android.widget.TextView;
-import android.widget.Toast;
 /**
  * Created by Diogo on 02/06/2015.
  */
@@ -60,13 +48,13 @@ public class ParseApplication extends Application {
         Parse.initialize(this, YOUR_APPLICATION_ID, YOUR_CLIENT_KEY);
 
 /*
-        RepositorioFaculdadeObj repositorioFaculdadeObj = new RepositorioFaculdadeObj(db) ;
+        RepositorioFaculdadeParse repositorioFaculdadeObj = new RepositorioFaculdadeParse(db) ;
         ParseFaculdade facull = new ParseFaculdade();
         facull.setNome("Universidade Federal do Rio de Janeiro");
         facull.setSigla("UFRJ");
         //repositorioFaculdadeObj.insert(facull);
 
-        RepositorioCursoObj repositorioCursoObj = new RepositorioCursoObj(db) ;
+        RepositorioCursoParse repositorioCursoObj = new RepositorioCursoParse(db) ;
         ParseCurso curso = new ParseCurso();
         curso.setNome("Mat");
         curso.setDescricao("not bad");
@@ -74,7 +62,7 @@ public class ParseApplication extends Application {
         repositorioCursoObj.insert(curso);
 */
 
-        RepositorioFaculdadeObj repositorioFaculdadeObj = new RepositorioFaculdadeObj(db);
+        RepositorioFaculdadeParse repositorioFaculdadeObj = new RepositorioFaculdadeParse(db);
         ParseFaculdade faculdade = new ParseFaculdade();
         faculdade = repositorioFaculdadeObj.get("1dMYXhdfvn");
         ParseCurso curso = new ParseCurso("Ciência da Computação3", "Um curso bacana2", faculdade );

@@ -6,8 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.parse.Parse;
-
 import database.Database;
 import objeto.Aluno;
 import objeto.Avaliacao;
@@ -19,7 +17,6 @@ import objeto.Comentario;
 import objeto.Curso;
 import objeto.Faculdade;
 import objeto.MetodoAvaliacaoCadeira;
-import objetoParse.ParseFaculdade;
 import repositorio.RepositorioAluno;
 import repositorio.RepositorioAvaliacao;
 import repositorio.RepositorioAvaliacaoCategoria;
@@ -29,7 +26,6 @@ import repositorio.RepositorioCategoriaAvaliacaoCadeira;
 import repositorio.RepositorioComentario;
 import repositorio.RepositorioCurso;
 import repositorio.RepositorioFaculdade;
-import repositorio.RepositorioFaculdadeObj;
 import repositorio.RepositorioMetodoAvaliacaoCadeira;
 
 

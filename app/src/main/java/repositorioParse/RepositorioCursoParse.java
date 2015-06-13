@@ -1,4 +1,4 @@
-package repositorio;
+package repositorioParse;
 
 
 import java.util.List;
@@ -8,12 +8,12 @@ import database.Database;
 /**
  * Created by ezequiel on 05/06/2015.
  */
-public class RepositorioCursoObj {
+public class RepositorioCursoParse {
 
 
     private Database db;
 
-    public RepositorioCursoObj(Database db){
+    public RepositorioCursoParse(Database db){
         this.db = db;
     }
 

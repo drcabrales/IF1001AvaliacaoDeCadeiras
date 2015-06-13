@@ -1,4 +1,4 @@
-package repositorio;
+package repositorioParse;
 
 import java.util.List;
 import objetoParse.ParseCadeira;
@@ -9,12 +9,12 @@ import database.Database;
 /**
  * Created by ezequiel on 05/06/2015.
  */
-public class RepositorioCadeiraObj {
+public class RepositorioCadeiraParse {
 
 
     private Database db;
 
-    public RepositorioCadeiraObj(Database db){
+    public RepositorioCadeiraParse(Database db){
         this.db = db;
     }
 

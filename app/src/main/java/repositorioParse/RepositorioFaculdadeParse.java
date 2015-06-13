@@ -1,4 +1,4 @@
-package repositorio;
+package repositorioParse;
 
 import java.util.List;
 
@@ -8,12 +8,12 @@ import objetoParse.ParseFaculdade;
 /**
  * Created by ezequiel on 05/06/2015.
  */
-public class RepositorioFaculdadeObj {
+public class RepositorioFaculdadeParse {
 
 
     private Database db;
 
-    public RepositorioFaculdadeObj(Database db){
+    public RepositorioFaculdadeParse(Database db){
         this.db = db;
     }
 
