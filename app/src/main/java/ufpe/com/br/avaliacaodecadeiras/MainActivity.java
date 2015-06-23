@@ -1,10 +1,17 @@
 package ufpe.com.br.avaliacaodecadeiras;
 
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import database.Database;
 import objeto.Aluno;
@@ -31,11 +38,55 @@ import repositorio.RepositorioMetodoAvaliacaoCadeira;
 
 public class MainActivity extends ActionBarActivity {
 
+    private String[] mPlanetTitles;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private CharSequence mTitle;
+    private ActionBarDrawerToggle mDrawerToggle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+       // setContentView(R.layout.cadeirasfavoritas);
+        mTitle = "test";
 
+        mPlanetTitles = new String[]{"one", "two", "three"};
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        //mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        // Set the adapter for the list view
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, mPlanetTitles));
+        // Set the list's click listener
+       // mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                R.drawable.abc_ab_share_pack_mtrl_alpha,  /* nav drawer icon to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description */
+                R.string.drawer_close  /* "close drawer" description */
+        ) {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle(mTitle);
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle(mTitle);
+            }
+        };
+
+        // Set the drawer toggle as the DrawerListener
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+
+        /*
         TextView txt1 = (TextView) findViewById(R.id.textView);
         TextView txt2 = (TextView) findViewById(R.id.textView2);
         TextView txt3 = (TextView) findViewById(R.id.textView3);
@@ -163,7 +214,7 @@ public class MainActivity extends ActionBarActivity {
        // repositorioComentario.insert(comentario);
        // repositorioComentario.delete(comentario);
        Comentario retornoComentario = repositorioComentario.get(1);
-       txt10.setText(String.valueOf(repositorioComentario.list().size()));
+       txt10.setText(String.valueOf(repositorioComentario.list().size()));*/
 
 
     }
