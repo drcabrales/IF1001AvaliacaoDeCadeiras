@@ -16,8 +16,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.TextView;
 
 
-public class CadeirasFavoritasActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, CadeirasFavoritasFragment.OnFragmentInteractionListener {
+public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, CadeirasFavoritasFragment.OnFragmentInteractionListener, VisualizarCadeiraFragment.OnFragmentInteractionListener{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.

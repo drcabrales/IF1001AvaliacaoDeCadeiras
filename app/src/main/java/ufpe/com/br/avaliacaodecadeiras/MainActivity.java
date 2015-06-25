@@ -47,7 +47,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.cadeirasfavoritas);
+       // setContentView(R.buttonshape.cadeirasfavoritas);
         mTitle = "test";
 
         mPlanetTitles = new String[]{"one", "two", "three"};

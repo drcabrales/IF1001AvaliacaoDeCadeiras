@@ -4,35 +4,25 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.parse.ParseObject;
-
-import java.util.ArrayList;
-
-import adapter.ListaCadeiraAdapter;
-import database.Database;
 import objetoParse.ParseCadeira;
-import repositorioParse.RepositorioAvaliacaoParse;
-import repositorioParse.RepositorioCadeiraParse;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CadeirasFavoritasFragment.OnFragmentInteractionListener} interface
+ * {@link VisualizarCadeiraFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CadeirasFavoritasFragment#newInstance} factory method to
+ * Use the {@link VisualizarCadeiraFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CadeirasFavoritasFragment extends Fragment {
+public class VisualizarCadeiraFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -50,11 +40,11 @@ public class CadeirasFavoritasFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CadeirasFavoritasFragment.
+     * @return A new instance of fragment VisualizarCadeiraFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CadeirasFavoritasFragment newInstance(String param1, String param2) {
-        CadeirasFavoritasFragment fragment = new CadeirasFavoritasFragment();
+    public static VisualizarCadeiraFragment newInstance(String param1, String param2) {
+        VisualizarCadeiraFragment fragment = new VisualizarCadeiraFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,7 +52,7 @@ public class CadeirasFavoritasFragment extends Fragment {
         return fragment;
     }
 
-    public CadeirasFavoritasFragment() {
+    public VisualizarCadeiraFragment() {
         // Required empty public constructor
     }
 
@@ -76,41 +66,25 @@ public class CadeirasFavoritasFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_cadeiras_favoritas, container, false);
-        //TODO: trocar para apenas as cadeiras marcadas como favoritas
 
-        final Bundle bundle = new Bundle();
+        View rootView = inflater.inflate(R.layout.fragment_visualizar_cadeira, container, false);
+        Bundle bundle = this.getArguments();
+        ParseCadeira cadeiraSelecionada = (ParseCadeira) bundle.getSerializable("cadeira");
 
-        //pegando a listview de cadeiras
-        ListView listaCadeiras = (ListView) rootView.findViewById(R.id.listViewCadeirasFavoritas);
+        TextView nomeCadeira = (TextView) rootView.findViewById(R.id.txtNomeCadeira);
+        TextView nomeProfessor = (TextView) rootView.findViewById(R.id.txtProfessor);
+        ListView categoriaAvaliacao = (ListView) rootView.findViewById(R.id.listCategoriaavaliacao);
+        TextView metodosAvaliacao = (TextView) rootView.findViewById(R.id.txtmetodosavaliacaovalue);
+        ListView comentarios = (ListView) rootView.findViewById(R.id.listcomentarios);
 
-        //criando o adapter responsável por setar os dados e a lista de dados
-        Database db = new Database(this.getActivity());
-        RepositorioCadeiraParse repCadeira = new RepositorioCadeiraParse(db);
-        ArrayList<ParseObject> lista = repCadeira.getAll();
-        ListaCadeiraAdapter adapter = new ListaCadeiraAdapter(this.getActivity(),lista);
+        nomeCadeira.setText(cadeiraSelecionada.getString("nome"));
+        nomeProfessor.setText(cadeiraSelecionada.getString("nomeProfessor"));
 
-        //setando o adapter da listview
-        listaCadeiras.setAdapter(adapter);
-
-        //setando onClick para a cadeira clicada
-        listaCadeiras.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ParseCadeira cadeiraSelecionada = (ParseCadeira) parent.getAdapter().getItem(position);
-                //passando a cadeira clicada para o próximo fragment
-                bundle.putSerializable("cadeira", cadeiraSelecionada);
-
-                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-                VisualizarCadeiraFragment fragment = new VisualizarCadeiraFragment();
-                fragment.setArguments(bundle);
-                transaction.add(R.id.container, fragment)
-                        .commit();
-
-            }
-        });
+        Button avaliar1 = (Button) rootView.findViewById(R.id.btnavaliar);
+        Button avaliar2 = (Button) rootView.findViewById(R.id.btnavaliar2);
+        //TODO: Setar clique para ir para AvaliarCadeiraFragment
 
 
         return rootView;

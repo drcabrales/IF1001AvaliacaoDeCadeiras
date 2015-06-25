@@ -1,0 +1,159 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ufpe.com.br.avaliacaodecadeiras.VisualizarCadeiraFragment"
+    android:clickable="true">
+
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/bg3">
+
+        <LinearLayout
+            android:layout_width="fill_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="NomeCadeira"
+                    android:id="@+id/txtNomeCadeira" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="NomeProfessor"
+                    android:id="@+id/txtProfessor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="0.5"
+                android:gravity="center_horizontal">
+                <CheckBox android:id="@+id/favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:button="@drawable/star"
+                    android:background="#00ffffff"
+                    android:layout_weight="0.3"/>
+
+                <Button
+                    android:id="@+id/btnavaliar"
+
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/buttonshape"
+                    android:shadowColor="#7C8EA8"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="5"
+                    android:text="Avaliar" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Opiniões de alunos:"
+            android:textSize="16sp"
+            android:id="@+id/txtopinioesalunos" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/listCategoriaavaliacao" />
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Métodos de avaliação:"
+            android:textSize="16sp"
+            android:id="@+id/txtmetodosavaliacao" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prova, projeto, seminário"
+            android:textSize="16sp"
+            android:id="@+id/txtmetodosavaliacaovalue" />
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comentários dos alunos:"
+            android:textSize="16sp"
+            android:id="@+id/txtcomentarios" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/listcomentarios" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/btnavaliar2"
+
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#7C8EA8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="Avaliar" />
+
+        <Button
+            android:id="@+id/btnvoltar"
+
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/buttonshape"
+            android:layout_marginLeft="25dp"
+            android:shadowColor="#7C8EA8"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="5"
+            android:text="Voltar" />
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
