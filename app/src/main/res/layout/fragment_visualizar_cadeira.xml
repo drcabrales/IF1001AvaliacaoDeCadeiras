@@ -49,6 +49,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
                     android:button="@drawable/star"
+                    android:focusable="false"
                     android:background="#00ffffff"
                     android:layout_weight="0.3"/>
 
