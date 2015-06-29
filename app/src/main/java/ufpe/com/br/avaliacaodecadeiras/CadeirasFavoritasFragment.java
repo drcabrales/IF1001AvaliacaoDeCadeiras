@@ -106,7 +106,7 @@ public class CadeirasFavoritasFragment extends Fragment {
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 VisualizarCadeiraFragment fragment = new VisualizarCadeiraFragment();
                 fragment.setArguments(bundle);
-                transaction.add(R.id.container, fragment)
+                transaction.replace(R.id.container, fragment)
                         .commit();
 
             }
