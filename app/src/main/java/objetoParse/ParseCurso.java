@@ -3,11 +3,13 @@ package objetoParse;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 
+import java.io.Serializable;
+
 /**
  * Created by Diogo on 02/06/2015.
  */
 @ParseClassName("Curso")
-public class ParseCurso extends ParseObject{
+public class ParseCurso extends ParseObject implements Serializable{
     public ParseCurso(){
         super();
     }

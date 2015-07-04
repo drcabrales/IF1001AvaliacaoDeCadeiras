@@ -37,5 +37,9 @@ public class RepositorioCadeiraParse {
         return db.getParseCadeiraObj(parseCurso, nome, nomeProfessor);
     }
 
+    public ArrayList<ParseObject> getCadeiraByCurso(ParseCurso parseCurso){
+        return db.getParseCadeiraObjByCurso(parseCurso);
+    }
+
 
 }
