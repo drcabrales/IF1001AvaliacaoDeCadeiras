@@ -4,26 +4,26 @@
     tools:context="ufpe.com.br.avaliacaodecadeiras.CadastrarCadeiraFragment"
     android:orientation="vertical"
     android:background="@drawable/bg3"
-    android:id="@+id/">
+    >
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Adicione cadeiras ao curso (nome curso)"
-            android:id="@+id/txtCadastreCadeira"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Adicione cadeiras ao curso (nome curso)"
+        android:id="@+id/txtCadastreCadeira"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Nome da cadeira: "
-            android:id="@+id/txtNomeCadeira"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="100dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Nome da cadeira: "
+        android:id="@+id/txtNomeCadeira"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="100dp"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -33,13 +33,13 @@
         android:id="@+id/edtNomeCadeira" />
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Nome do professor: "
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="15dp"
-            android:id="@+id/txtNomeProfessor"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Nome do professor: "
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:id="@+id/txtNomeProfessor"/>
 
     <EditText
         android:layout_width="match_parent"
