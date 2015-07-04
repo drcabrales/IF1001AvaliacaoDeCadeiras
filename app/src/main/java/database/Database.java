@@ -10,6 +10,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import objetoParse.ParseCadeiraFavorita;
 import objetoParse.ParseFaculdade;
 import objetoParse.ParseAluno;
 import objetoParse.ParseAvaliacao;
@@ -151,7 +152,7 @@ public class Database extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.w(TAG, oldVersion + " to " + newVersion
                 + ", which will destroy all old data");
-        db.execSQL("DROP TABLE IF EXISTS faculdade;"+"DROP TABLE IF EXIST curso;"+"DROP TABLE IF EXIST aluno;"+"DROP TABLE IF EXIST categoriaAvaliacaoCadeira;"+"DROP TABLE IF EXIST avaliacao;"+" DROP TABLE IF EXIST avaliacaoMetodo;"+ "DROP TABLE IF EXIST avaliacaoCategoria;"+"DROP TABLE IF EXIST comentario;" );
+        db.execSQL("DROP TABLE IF EXISTS faculdade;" + "DROP TABLE IF EXIST curso;" + "DROP TABLE IF EXIST aluno;" + "DROP TABLE IF EXIST categoriaAvaliacaoCadeira;" + "DROP TABLE IF EXIST avaliacao;" + " DROP TABLE IF EXIST avaliacaoMetodo;" + "DROP TABLE IF EXIST avaliacaoCategoria;" + "DROP TABLE IF EXIST comentario;");
         onCreate(db);
     }
 
@@ -232,6 +233,15 @@ public class Database extends SQLiteOpenHelper{
         comentario.saveInBackground();
     }
 
+    public void insertCadeiraFavoritaObj (ParseCadeiraFavorita parseCadeiraFavorita){
+        ParseCadeiraFavorita cadeiraFavorita = new ParseCadeiraFavorita();
+        cadeiraFavorita.put("aluno",parseCadeiraFavorita.getAluno());
+        cadeiraFavorita.put("cadeira", parseCadeiraFavorita.getCadeira());
+    }
+
+    public void deleteCadeiraFavoritaObj (ParseCadeiraFavorita parseCadeiraFavorita){
+        parseCadeiraFavorita.deleteInBackground();
+    }
 
     public void deleteFaculdadeObj (ParseFaculdade parseFaculdade){
         parseFaculdade.deleteInBackground();
@@ -271,6 +281,19 @@ public class Database extends SQLiteOpenHelper{
 
     public void deleteComentarioObj (ParseComentario parseComentario){
         parseComentario.deleteInBackground();
+    }
+
+    public ParseCadeiraFavorita getParseCadeiraFavoritaObj(ParseAluno parseAluno, ParseCadeira parseCadeira){
+        ParseCadeiraFavorita retorno = new ParseCadeiraFavorita();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("CadeiraFavorita");
+        query.whereEqualTo("aluno", parseAluno);
+        query.whereEqualTo("cadeira",parseCadeira);
+        try {
+            retorno = (ParseCadeiraFavorita) query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retorno;
     }
 
     public ParseFaculdade getParseFaculdadeObj (String sigla){

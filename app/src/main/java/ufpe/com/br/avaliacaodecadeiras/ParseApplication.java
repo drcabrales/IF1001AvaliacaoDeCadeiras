@@ -17,6 +17,7 @@ import objetoParse.ParseAvaliacao;
 import objetoParse.ParseAvaliacaoCategoria;
 import objetoParse.ParseAvaliacaoMetodo;
 import objetoParse.ParseCadeira;
+import objetoParse.ParseCadeiraFavorita;
 import objetoParse.ParseCategoriaAvaliacaoCadeira;
 import objetoParse.ParseComentario;
 import objetoParse.ParseCurso;
@@ -60,6 +61,7 @@ public class ParseApplication extends Application {
         ParseObject.registerSubclass(ParseAvaliacaoCategoria.class);
         ParseObject.registerSubclass(ParseAvaliacaoMetodo.class);
         ParseObject.registerSubclass(ParseComentario.class);
+        ParseObject.registerSubclass(ParseCadeiraFavorita.class);
 
         Database db = new Database(this);
 
@@ -196,8 +198,8 @@ public class ParseApplication extends Application {
 
 
         // testando
-      //  ParseFaculdade faculdade = new ParseFaculdade("Universidade Federal de Pernambuco", "UFPE");
-      //  faculdade.saveInBackground();
+        ParseFaculdade faculdade = new ParseFaculdade("Universidade Federal de Pernambuco", "UFPE");
+        faculdade.saveInBackground();
         //faculdade.deleteInBackground();
 
         //ParseCurso curso = new ParseCurso("Ciência da Computação2", "Um curso bacana", faculdade );
@@ -205,16 +207,22 @@ public class ParseApplication extends Application {
 
 
 
-       // ParseCurso curso = new ParseCurso("Ciência da Computação2", "Um curso bacana", faculdade.getObjectId() );
-     //   curso.saveInBackground();
+        ParseCurso curso = new ParseCurso("Ciência da Computação4", "Um curso bacana", faculdade );
+       curso.saveInBackground();
 
+        ParseAluno aluno = new ParseAluno("Diogo", "drc2@cin.ufpe.br", "senhaAleatoria", curso); //ver como colocar null na foto
+        aluno.saveInBackground();
 
-/*
         ParseCadeira cadeira = new ParseCadeira("Programação 3", "Leopoldo", curso);
         cadeira.saveInBackground();
 
-        ParseAluno aluno = new ParseAluno("Diogo", "drc2@cin.ufpe.br", "senhaAleatoria", new byte[12], curso); //ver como colocar null na foto
-        aluno.saveInBackground();
+        ParseCadeiraFavorita cadeiraFavorita = new ParseCadeiraFavorita(aluno, cadeira);
+        cadeiraFavorita.saveInBackground();
+
+        int a = 2;
+        /*
+
+
 
         ParseCategoriaAvaliacaoCadeira categoriaAvaliacaoCadeira = new ParseCategoriaAvaliacaoCadeira("Dificuldade");
         categoriaAvaliacaoCadeira.saveInBackground();
