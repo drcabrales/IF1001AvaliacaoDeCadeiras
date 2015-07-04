@@ -3,27 +3,29 @@ package ufpe.com.br.avaliacaodecadeiras;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import database.Database;
 import objetoParse.ParseCadeira;
+import objetoParse.ParseCurso;
+import repositorioParse.RepositorioCadeiraParse;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link VisualizarCadeiraFragment.OnFragmentInteractionListener} interface
+ * {@link CadastrarCadeiraFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link VisualizarCadeiraFragment#newInstance} factory method to
+ * Use the {@link CadastrarCadeiraFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class VisualizarCadeiraFragment extends Fragment {
+public class CadastrarCadeiraFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,11 +43,11 @@ public class VisualizarCadeiraFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment VisualizarCadeiraFragment.
+     * @return A new instance of fragment CadastrarCadeiraFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static VisualizarCadeiraFragment newInstance(String param1, String param2) {
-        VisualizarCadeiraFragment fragment = new VisualizarCadeiraFragment();
+    public static CadastrarCadeiraFragment newInstance(String param1, String param2) {
+        CadastrarCadeiraFragment fragment = new CadastrarCadeiraFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -53,7 +55,7 @@ public class VisualizarCadeiraFragment extends Fragment {
         return fragment;
     }
 
-    public VisualizarCadeiraFragment() {
+    public CadastrarCadeiraFragment() {
         // Required empty public constructor
     }
 
@@ -70,46 +72,48 @@ public class VisualizarCadeiraFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_visualizar_cadeira, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_cadastrar_cadeira, container, false);
+
         Bundle bundle = this.getArguments();
-        ParseCadeira cadeiraSelecionada = (ParseCadeira) bundle.getSerializable("cadeira");
+        //TODO: EM LISTAR CADEIRA, PASSAR PRO BUNDLE DO FRAGMENT O CURSO QUE TÁ SENDO VISUALIZADO NO MOMENTO
+        final ParseCurso cursoSelecionado = (ParseCurso) bundle.getSerializable("curso");
 
-        TextView nomeCadeira = (TextView) rootView.findViewById(R.id.txtNomeCadeira);
-        TextView nomeProfessor = (TextView) rootView.findViewById(R.id.txtProfessor);
-        ListView categoriaAvaliacao = (ListView) rootView.findViewById(R.id.listCategoriaavaliacao);
-        TextView metodosAvaliacao = (TextView) rootView.findViewById(R.id.txtmetodosavaliacaovalue);
-        ListView comentarios = (ListView) rootView.findViewById(R.id.listcomentarios);
+        final EditText edtNomeCadeira = (EditText) rootView.findViewById(R.id.edtNomeCadeira);
+        final EditText edtNomeProfessor = (EditText) rootView.findViewById(R.id.edtNomeProfessor);
+        Button btnCadastrarCadeira = (Button) rootView.findViewById(R.id.btnCadastrarCadeira);
+        Button btnVoltarCadastrarCadeira = (Button) rootView.findViewById(R.id.btnVoltarCadastrarCadeira);
 
-        nomeCadeira.setText(cadeiraSelecionada.getString("nome"));
-        nomeProfessor.setText(cadeiraSelecionada.getString("nomeProfessor"));
 
-        Button avaliar1 = (Button) rootView.findViewById(R.id.btnavaliar);
-        Button avaliar2 = (Button) rootView.findViewById(R.id.btnavaliar2);
 
-        final Bundle bundleEnvio = new Bundle();
-        bundleEnvio.putSerializable("cadeira", cadeiraSelecionada);
+        final Toast toastCadastroOk = Toast.makeText(this.getActivity(), "Cadeira cadastrada com sucesso!", Toast.LENGTH_SHORT);
 
-        avaliar1.setOnClickListener(new View.OnClickListener() {
+        Database db = new Database(this.getActivity());
+        final RepositorioCadeiraParse repCadeira = new RepositorioCadeiraParse(db);
+
+        btnCadastrarCadeira.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                AvaliarCadeirasFragment fragment = new AvaliarCadeirasFragment();
-                fragment.setArguments(bundleEnvio);
-                transaction.replace(R.id.container, fragment)
-                        .commit();
+                ParseCadeira cadeiraACadastrar = new ParseCadeira(edtNomeCadeira.getText().toString(), edtNomeProfessor.getText().toString(), cursoSelecionado);
+                repCadeira.insert(cadeiraACadastrar);
+
+                //limpando os campos do cadastro
+                edtNomeCadeira.setText("");
+                edtNomeProfessor.setText("");
+
+                //toast informando o cadastro da cadeira
+                toastCadastroOk.show();
             }
         });
 
-        avaliar2.setOnClickListener(new View.OnClickListener() {
+
+        btnVoltarCadastrarCadeira.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                AvaliarCadeirasFragment fragment = new AvaliarCadeirasFragment();
-                fragment.setArguments(bundleEnvio);
-                transaction.replace(R.id.container, fragment)
-                        .commit();
+                //TODO: volta para o listar cadeiras com replace fragment
             }
         });
+
+
 
         return rootView;
     }
