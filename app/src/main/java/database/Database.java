@@ -965,5 +965,18 @@ public class Database extends SQLiteOpenHelper{
         return retorno;
     }
 
+    public ParseAluno login(String email, String password){
+        ParseAluno retorno = new ParseAluno();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Aluno");
+        query.whereEqualTo("email", email);
+        query.whereEqualTo("senha", password);
+        try {
+            retorno = (ParseAluno) query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
 
 }
