@@ -56,7 +56,11 @@ public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
                         .commit();
             } else if(position == 2){
                 mTitle = "Cadeiras";
-                //TODO
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                ListaCadeiraFragment fragment = new ListaCadeiraFragment();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, fragment)
+                        .commit();
             }else{
                 mTitle = "Perfil";
                 //TODO
