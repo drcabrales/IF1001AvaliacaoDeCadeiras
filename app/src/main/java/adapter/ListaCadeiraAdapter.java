@@ -72,9 +72,9 @@ public class ListaCadeiraAdapter extends BaseAdapter {
                 e.printStackTrace();
             }
 
-            holder.txtNome.setText(cadeira.getString("nome"));
-            holder.txtProfessor.setText(cadeira.getString("nomeProfessor"));
-            holder.txtCurso.setText(curso.getString("nome"));
+            holder.txtNome.setText(cadeira.getNome());
+            holder.txtProfessor.setText(cadeira.getNomeProfessor());
+            holder.txtCurso.setText(curso.getNome());
 
             convertView.setTag(holder);
         } else {
