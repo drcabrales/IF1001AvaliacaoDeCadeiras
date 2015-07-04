@@ -4,7 +4,7 @@
     tools:context="ufpe.com.br.avaliacaodecadeiras.CadastrarCadeiraFragment"
     android:orientation="vertical"
     android:background="@drawable/bg3"
-    android:id="@+id/">
+    >
 
 
         <TextView

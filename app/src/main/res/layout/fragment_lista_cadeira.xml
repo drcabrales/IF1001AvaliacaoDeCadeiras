@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/bg3"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -71,6 +72,27 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="202dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/listCadeira" />
+
+
+    <Button
+        android:id="@+id/btnIrCadastroCadeira"
+
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="@drawable/buttonshape"
+        android:layout_marginLeft="0dp"
+        android:shadowColor="#7C8EA8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="Cadastra Cadeira" />
 
 </LinearLayout>

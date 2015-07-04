@@ -413,6 +413,18 @@ public class Database extends SQLiteOpenHelper{
         return retorno;
     }
 
+    public ArrayList<ParseObject> getParseCadeiraObjByCurso (ParseCurso parseCurso){
+        ArrayList<ParseObject> lista = new ArrayList<ParseObject>();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Cadeira");
+        query.whereEqualTo("curso", parseCurso);
+        try {
+            lista = (ArrayList<ParseObject>) query.find();
+        } catch (com.parse.ParseException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
     public ArrayList<ParseObject> getAll (String tabela){
         ParseQuery<ParseObject> query = ParseQuery.getQuery(tabela);
         ArrayList<ParseObject> lista = new ArrayList<ParseObject>();

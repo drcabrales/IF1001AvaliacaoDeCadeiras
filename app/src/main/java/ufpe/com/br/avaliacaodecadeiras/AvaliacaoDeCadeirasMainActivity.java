@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 
 public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, CadeirasFavoritasFragment.OnFragmentInteractionListener, VisualizarCadeiraFragment.OnFragmentInteractionListener, AvaliarCadeirasFragment.OnFragmentInteractionListener{
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, CadeirasFavoritasFragment.OnFragmentInteractionListener, VisualizarCadeiraFragment.OnFragmentInteractionListener, AvaliarCadeirasFragment.OnFragmentInteractionListener, ListaCadeiraFragment.OnFragmentInteractionListener, CadastrarCadeiraFragment.OnFragmentInteractionListener{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -54,7 +54,7 @@ public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, fragment)
                         .commit();
-            } else if(position == 2){
+            } else if(position == 1){
                 mTitle = "Cadeiras";
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 ListaCadeiraFragment fragment = new ListaCadeiraFragment();

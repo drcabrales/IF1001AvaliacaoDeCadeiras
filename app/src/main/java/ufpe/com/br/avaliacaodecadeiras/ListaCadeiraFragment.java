@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.parse.ParseObject;
 
@@ -37,12 +41,16 @@ public class ListaCadeiraFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private ArrayList<ParseObject> listaCadeira = new ArrayList<ParseObject>();
+    ParseCurso cursoSelecionado;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private AutoCompleteTextView actv;
     private AutoCompleteTextView actv2;
+    private String cursoN = "";
+    private String cadeiraN = "";
 
     private OnFragmentInteractionListener mListener;
 
@@ -84,43 +92,129 @@ public class ListaCadeiraFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_lista_cadeira, container, false);
         final Bundle bundle = new Bundle();
 
-        ListView listaCadeiras = (ListView) rootView.findViewById(R.id.listCadeira);
+        final ListView listaCadeiras = (ListView) rootView.findViewById(R.id.listCadeira);
         Database db = new Database(this.getActivity());
-        RepositorioCadeiraParse repCadeira = new RepositorioCadeiraParse(db);
+        final RepositorioCadeiraParse repCadeira = new RepositorioCadeiraParse(db);
         RepositorioCursoParse repCurso = new RepositorioCursoParse(db);
 
-        //TODO: fazer filtro para pegar cadeira pelo curso escolhido
-        ArrayList<ParseObject> listaCadeira = repCadeira.getAll();
+
+        
         //TODO: fazer filtro para pegar cursos pela faculdade do usuario
-        ArrayList<ParseObject> listaCurso = repCurso.getAll();
+        final ArrayList<ParseObject> listaCurso = repCurso.getAll();
 
         ArrayList <String> nomeCursos = new ArrayList <String> ();
-        ArrayList <String> nomeCadeira = new ArrayList <String> ();
-
-        ListaCadeiraAdapter adapter = new ListaCadeiraAdapter(this.getActivity(),listaCadeira);
-        listaCadeiras.setAdapter(adapter);
+        
+        
 
         for (int i = 0; i < listaCurso.size(); i++){
             nomeCursos.add(((ParseCurso)listaCurso.get(i)).getNome());
         }
 
-        for (int i = 0; i < listaCadeira.size() ; i++) {
-            nomeCadeira.add(((ParseCadeira)listaCadeira.get(i)).getNome());
-        }
-
-
-
         actv = (AutoCompleteTextView) rootView.findViewById(R.id.autoCompleteTextView1);
         actv2 = (AutoCompleteTextView)rootView.findViewById(R.id.autoCompleteTextView2);
 
+        Button btnIrCadastroCadeira = (Button) rootView.findViewById(R.id.btnIrCadastroCadeira);
 
         ArrayAdapter<String> adapterAutoCompleteCurso = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_list_item_1,nomeCursos);
         actv.setAdapter(adapterAutoCompleteCurso);
 
-        ArrayAdapter<String> adapterAutoCompleteCadeira = new ArrayAdapter<String>(this.getActivity(),android.R.layout.simple_list_item_1,nomeCadeira);
-        actv2.setAdapter(adapterAutoCompleteCurso);
+        final Activity activity = this.getActivity();
+        
+        actv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                cursoN = (String) parent.getAdapter().getItem(position);
 
-        return inflater.inflate(R.layout.fragment_lista_cadeira, container, false);
+                cursoSelecionado = new ParseCurso();
+
+                for (int i = 0; i < listaCurso.size(); i++) {
+                    if (((ParseCurso) listaCurso.get(i)).getNome().equals(cursoN)) {
+                        cursoSelecionado = (ParseCurso) listaCurso.get(i);
+                    }
+                }
+
+
+                ArrayList<String> nomeCadeira = new ArrayList<String>();
+
+                listaCadeira = repCadeira.getCadeiraByCurso(cursoSelecionado);
+
+                for (int i = 0; i < listaCadeira.size(); i++) {
+                    nomeCadeira.add(((ParseCadeira) listaCadeira.get(i)).getNome());
+                }
+
+                ArrayAdapter<String> adapterAutoCompleteCadeira = new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, nomeCadeira);
+                actv2.setAdapter(adapterAutoCompleteCadeira);
+
+                ListaCadeiraAdapter adapter = new ListaCadeiraAdapter(activity, listaCadeira);
+                listaCadeiras.setAdapter(adapter);
+            }
+        });
+
+        
+        
+
+        actv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                cadeiraN = (String) parent.getAdapter().getItem(position);
+                
+                ParseCadeira cadeiraSelecionado = new ParseCadeira();
+
+
+                for (int i = 0; i < listaCadeira.size(); i++) {
+                    if (((ParseCadeira) listaCadeira.get(i)).getNome().equals(cadeiraN)) {
+                        cadeiraSelecionado = (ParseCadeira) listaCadeira.get(i);
+                        
+                    }
+                }
+
+                bundle.putSerializable("cadeira", cadeiraSelecionado);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                VisualizarCadeiraFragment fragment = new VisualizarCadeiraFragment();
+                fragment.setArguments(bundle);
+                transaction.replace(R.id.container, fragment)
+                        .commit();
+
+            }
+        });
+
+        listaCadeiras.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ParseCadeira cadeiraSelecionada = (ParseCadeira) parent.getAdapter().getItem(position);
+                //passando a cadeira clicada para o próximo fragment
+                bundle.putSerializable("cadeira", cadeiraSelecionada);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                VisualizarCadeiraFragment fragment = new VisualizarCadeiraFragment();
+                fragment.setArguments(bundle);
+                transaction.replace(R.id.container, fragment)
+                        .commit();
+
+            }
+        });
+
+        final Bundle bundle2 = new Bundle();
+        final Toast toastCadastroErro = Toast.makeText(this.getActivity(), "Para cadastrar uma cadeira escolha um curso!", Toast.LENGTH_SHORT);
+        btnIrCadastroCadeira.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(cursoSelecionado != null){
+                    bundle2.putSerializable("curso",cursoSelecionado);
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    CadastrarCadeiraFragment fragment = new CadastrarCadeiraFragment();
+                    fragment.setArguments(bundle2);
+                    transaction.replace(R.id.container, fragment ).commit();
+                }else{
+                    toastCadastroErro.show();
+                }
+
+
+            }
+        });
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
