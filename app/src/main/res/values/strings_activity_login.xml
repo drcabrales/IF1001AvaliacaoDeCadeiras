@@ -9,6 +9,6 @@
 
     <string name="error_invalid_email">Coloque um email válido</string>
     <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_incorrect_password">Senha incorreta</string>
     <string name="error_field_required">O campo email é obrigatório</string>
 </resources>
