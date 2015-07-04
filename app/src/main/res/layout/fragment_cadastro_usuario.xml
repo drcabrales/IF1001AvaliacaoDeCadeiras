@@ -1,0 +1,109 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ufpe.com.br.avaliacaodecadeiras.CadastroUsuarioFragment"
+    android:orientation="vertical"
+    android:background="@drawable/bg3">
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Cadastro de usuário"
+        android:id="@+id/txtCadastroUsuario"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Nome: "
+        android:id="@+id/txtNomeUsuario" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtNomeUsuario" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email:"
+        android:id="@+id/txtEmailUsuario" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtEmailUsuario" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Senha:"
+        android:id="@+id/txtSenhaUsuario" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/edtSenhaUsuario" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sigla da faculdade:"
+        android:id="@+id/txtSiglaFaculdadeUsuario" />
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/autoCompleteSiglaFaculdadeUsuario" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome da faculdade:"
+        android:id="@+id/txtFaculdadeUsuario" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtNomeFaculdade" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Curso:"
+        android:id="@+id/txtCursoUsuario" />
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/autoCompleteCursoUsuario" />
+
+    <Button
+        android:id="@+id/btnCadastrarUsuario"
+        android:layout_marginTop="15dp"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:background="@drawable/buttonshape"
+        android:layout_gravity="center_horizontal"
+        android:shadowColor="#7C8EA8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="Cadastrar" />
+</LinearLayout>
+
+</LinearLayout>

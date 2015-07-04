@@ -39,5 +39,9 @@ public class RepositorioCursoParse {
         return db.getParseCursoObj(nome, parseFaculdade);
     }
 
+    public ArrayList<ParseObject> getByFaculdade(ParseFaculdade parseFaculdade){
+        return db.getParseCursoObjByFaculdade(parseFaculdade);
+    }
+
 
 }

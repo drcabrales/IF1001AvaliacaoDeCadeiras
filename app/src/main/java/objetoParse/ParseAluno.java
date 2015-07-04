@@ -11,12 +11,11 @@ public class ParseAluno extends ParseObject{
     public ParseAluno(){
         super();
     }
-    public ParseAluno(String nome, String email, String senha, byte[] foto,ParseCurso curso){
+    public ParseAluno(String nome, String email, String senha,ParseCurso curso){
         super();
         setNome(nome);
         setEmail(email);
         setSenha(senha);
-        setFoto(foto);
         setCurso(curso);
     }
 
@@ -42,14 +41,6 @@ public class ParseAluno extends ParseObject{
 
     public void setSenha(String senha){
         put("senha", senha);
-    }
-
-    public byte[] getFoto(){
-        return getBytes("foto");
-    }
-
-    public void setFoto(byte[] foto){
-        put("foto", foto);
     }
 
     public ParseCurso getCurso(){

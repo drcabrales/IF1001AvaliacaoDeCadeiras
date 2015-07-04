@@ -176,7 +176,6 @@ public class Database extends SQLiteOpenHelper{
         aluno.put("nome",parseAluno.getNome());
         aluno.put("email",parseAluno.getEmail());
         aluno.put("senha",parseAluno.getSenha());
-        aluno.put("foto",parseAluno.getFoto());
         aluno.put("curso",parseAluno.getCurso());
         aluno.saveInBackground();
     }
@@ -319,6 +318,18 @@ public class Database extends SQLiteOpenHelper{
         query.whereEqualTo("faculdade",parseFaculdade);
         try {
             retorno = (ParseCurso) query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
+    public ArrayList<ParseObject> getParseCursoObjByFaculdade (ParseFaculdade parseFaculdade){
+        ArrayList<ParseObject> retorno = new ArrayList<ParseObject>();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Curso");
+        query.whereEqualTo("faculdade",parseFaculdade);
+        try {
+            retorno = (ArrayList<ParseObject>) query.find();
         } catch (ParseException e) {
             e.printStackTrace();
         }
