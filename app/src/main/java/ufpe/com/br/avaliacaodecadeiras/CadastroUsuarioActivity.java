@@ -22,6 +22,8 @@ import database.Database;
 import objetoParse.ParseAluno;
 import objetoParse.ParseCurso;
 import objetoParse.ParseFaculdade;
+import repositorio.RepositorioCurso;
+import repositorio.RepositorioFaculdade;
 import repositorioParse.RepositorioAlunoParse;
 import repositorioParse.RepositorioCursoParse;
 import repositorioParse.RepositorioFaculdadeParse;
@@ -85,6 +87,8 @@ public class CadastroUsuarioActivity extends Activity {
 
         //cadastrando o usuario
         final RepositorioAlunoParse repAluno = new RepositorioAlunoParse(db);
+        final RepositorioCursoParse repCurso = new RepositorioCursoParse(db);
+        final RepositorioFaculdadeParse repFaculdadeP = new RepositorioFaculdadeParse(db);
 
 
         final Intent intent = new Intent(this, LoginActivity.class);
@@ -93,9 +97,21 @@ public class CadastroUsuarioActivity extends Activity {
             @Override
             public void onClick(View v) {
                 toastCadastroOk.show();
-                ParseFaculdade auxF = new ParseFaculdade(siglaSelecionada, autoCompleteSiglaFaculdade.getText().toString());
-                ParseCurso aux = new ParseCurso(autoCompleteNomeCurso.getText().toString(), "", auxF);
-                ParseAluno alunoACadastrar = new ParseAluno(nomeUsuario.getText().toString(), emailUsuario.getText().toString(), senhaUsuario.getText().toString(), aux);
+                ParseAluno alunoACadastrar;
+                ParseFaculdade auxF = repFaculdadeP.get(siglaSelecionada);
+                if(!auxF.getNome().equals("")){ //se existe essa faculdade
+                    ParseCurso aux = repCurso.get(autoCompleteNomeCurso.getText().toString(), auxF);
+                    alunoACadastrar = new ParseAluno(nomeUsuario.getText().toString(), emailUsuario.getText().toString(), senhaUsuario.getText().toString(), aux);
+                }else{ //senao
+                    auxF = new ParseFaculdade(nomeFaculdade.getText().toString(),autoCompleteSiglaFaculdade.getText().toString());
+                    auxF.saveInBackground();
+                    auxF = repFaculdadeP.get(autoCompleteSiglaFaculdade.getText().toString());
+                    ParseCurso aux = new ParseCurso(autoCompleteNomeCurso.getText().toString(), "", auxF);
+                    aux.saveInBackground();
+                    aux = repCurso.get(autoCompleteNomeCurso.getText().toString(), auxF);
+                    alunoACadastrar = new ParseAluno(nomeUsuario.getText().toString(), emailUsuario.getText().toString(), senhaUsuario.getText().toString(), aux);
+                }
+
 
                 repAluno.insert(alunoACadastrar);
                 startActivity(intent);
