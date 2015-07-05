@@ -39,7 +39,7 @@ import repositorioParse.RepositorioAlunoParse;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, CadastroUsuarioFragment.OnFragmentInteractionListener {
+public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>  {
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -259,10 +259,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         mEmailView.setAdapter(adapter);
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
@@ -296,14 +292,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
             if (alunoLogado.getEmail() != null) {
                 Intent intent = new Intent(mActivity, AvaliacaoDeCadeirasMainActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("alunoLogado", alunoLogado);
+                bundle.putSerializable("aluno", alunoLogado);
                 intent.putExtras(bundle);
-               // intent.putExtra("aluno",alunoLogado);
-   /*             Bundle params = new Bundle();
+
+   /*           Bundle params = new Bundle();
                 params.putSerializable("alunoLogado", alunoLogado);
                 Intent intent = new Intent(mActivity, AvaliacaoDeCadeirasMainActivity.class);
-                intent.putExtra("alunoLogado",params);
-*/
+                intent.putExtra("alunoLogado",params);*/
                 startActivity(intent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
