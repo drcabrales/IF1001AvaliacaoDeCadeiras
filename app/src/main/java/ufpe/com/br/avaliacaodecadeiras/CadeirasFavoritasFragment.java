@@ -13,14 +13,18 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parse.ParseException;
 import com.parse.ParseObject;
 
 import java.util.ArrayList;
 
 import adapter.ListaCadeiraAdapter;
 import database.Database;
+import objetoParse.ParseAluno;
 import objetoParse.ParseCadeira;
+import objetoParse.ParseCadeiraFavorita;
 import repositorioParse.RepositorioAvaliacaoParse;
+import repositorioParse.RepositorioCadeiraFavoritaParse;
 import repositorioParse.RepositorioCadeiraParse;
 
 
@@ -41,7 +45,7 @@ public class CadeirasFavoritasFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private ArrayList<ParseObject> listaFavorito = new ArrayList<ParseObject>();
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -83,14 +87,35 @@ public class CadeirasFavoritasFragment extends Fragment {
 
         final Bundle bundle = new Bundle();
 
+        Bundle mBundle = new Bundle();
+        mBundle = getArguments();
+        ParseAluno aluno = (ParseAluno) mBundle.getSerializable("aluno");
+        ArrayList<String> nomeCadeira = new ArrayList<String>();
+
         //pegando a listview de cadeiras
         ListView listaCadeiras = (ListView) rootView.findViewById(R.id.listViewCadeirasFavoritas);
 
         //criando o adapter responsável por setar os dados e a lista de dados
         Database db = new Database(this.getActivity());
-        RepositorioCadeiraParse repCadeira = new RepositorioCadeiraParse(db);
-        ArrayList<ParseObject> lista = repCadeira.getAll();
-        ListaCadeiraAdapter adapter = new ListaCadeiraAdapter(this.getActivity(),lista);
+        //RepositorioCadeiraParse repCadeira = new RepositorioCadeiraParse(db);
+        //ArrayList<ParseObject> lista = repCadeira.getAll();
+        RepositorioCadeiraFavoritaParse repCadeiraFavorita = new RepositorioCadeiraFavoritaParse(db);
+
+        listaFavorito = repCadeiraFavorita.getCadeiraByAluno(aluno);
+        ArrayList<ParseObject> listaCadeirasF = new ArrayList<ParseObject>();
+        for (int i = 0; i < listaFavorito.size(); i++) {
+            ParseCadeiraFavorita cadeiraFavorita = (ParseCadeiraFavorita) listaFavorito.get(i);
+            ParseObject cadeiraF = null;
+            try {
+                cadeiraF = cadeiraFavorita.getCadeira().fetchIfNeeded();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            listaCadeirasF.add(cadeiraF);
+        }
+
+
+        ListaCadeiraAdapter adapter = new ListaCadeiraAdapter(this.getActivity(),listaCadeirasF);
 
         //setando o adapter da listview
         listaCadeiras.setAdapter(adapter);

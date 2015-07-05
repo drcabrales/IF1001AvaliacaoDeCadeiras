@@ -281,8 +281,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             if (alunoLogado.getEmail() != null) {
                 Intent intent = new Intent(mActivity, AvaliacaoDeCadeirasMainActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("aluno", alunoLogado);
+                bundle.putSerializable("alunoLogado", alunoLogado);
                 intent.putExtras(bundle);
+               // intent.putExtra("aluno",alunoLogado);
+   /*             Bundle params = new Bundle();
+                params.putSerializable("alunoLogado", alunoLogado);
+                Intent intent = new Intent(mActivity, AvaliacaoDeCadeirasMainActivity.class);
+                intent.putExtra("alunoLogado",params);
+*/
                 startActivity(intent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

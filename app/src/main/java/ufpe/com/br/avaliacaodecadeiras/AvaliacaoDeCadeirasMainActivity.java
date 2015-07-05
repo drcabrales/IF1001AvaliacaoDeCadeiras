@@ -1,6 +1,7 @@
 package ufpe.com.br.avaliacaodecadeiras;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -15,15 +16,17 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.TextView;
 
+import objetoParse.ParseAluno;
+
 
 public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, CadeirasFavoritasFragment.OnFragmentInteractionListener, VisualizarCadeiraFragment.OnFragmentInteractionListener, AvaliarCadeirasFragment.OnFragmentInteractionListener, ListaCadeiraFragment.OnFragmentInteractionListener, CadastrarCadeiraFragment.OnFragmentInteractionListener{
 
     /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
+     *  Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
+    private ParseAluno alunoLogado;
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
@@ -31,17 +34,33 @@ public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cadeiras_favoritas);
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_cadeiras_favoritas);
 
-        mNavigationDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        mTitle = getTitle();
+        /*
+            Intent intent = getIntent();
+            Bundle params = intent.getExtras();
+            this.alunoLogado = (ParseAluno) params.getSerializable("alunoLogado");
+            int f = 5;
+          */
+        /*
+            Bundle extras = getIntent().getExtras();
+            alunoLogado = (ParseAluno) extras.getSerializable("alunoLogado");
+            alunoLogado = (ParseAluno) getIntent().getSerializableExtra("aluno");
+          */
+        ParseAluno aluno2 = (ParseAluno) getIntent().getExtras().getSerializable("alunoLogado");
+            int a = 5;
+            mNavigationDrawerFragment = (NavigationDrawerFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+            mTitle = getTitle();
 
-        // Set up the drawer.
-        mNavigationDrawerFragment.setUp(
-                R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+            // Set up the drawer.
+            mNavigationDrawerFragment.setUp(
+                    R.id.navigation_drawer,
+                    (DrawerLayout) findViewById(R.id.drawer_layout));
+
+
+
     }
 
     @Override
@@ -50,7 +69,16 @@ public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
             if(position == 2){
                 mTitle = "Favoritas";
                 FragmentManager fragmentManager = getSupportFragmentManager();
+
+
+
+                final Bundle bundle = new Bundle();
+                bundle.putSerializable("aluno", alunoLogado);
+
+
                 CadeirasFavoritasFragment fragment = new CadeirasFavoritasFragment();
+                fragment.setArguments(bundle);
+
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, fragment)
                         .commit();

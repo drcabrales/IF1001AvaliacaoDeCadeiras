@@ -198,8 +198,8 @@ public class ParseApplication extends Application {
 
 
         // testando
-        ParseFaculdade faculdade = new ParseFaculdade("Universidade Federal de Pernambuco", "UFPE");
-        faculdade.saveInBackground();
+        //ParseFaculdade faculdade = new ParseFaculdade("Universidade Federal de Pernambuco", "UFPE");
+      //  faculdade.saveInBackground();
         //faculdade.deleteInBackground();
 
         //ParseCurso curso = new ParseCurso("Ciência da Computação2", "Um curso bacana", faculdade );
@@ -207,19 +207,19 @@ public class ParseApplication extends Application {
 
 
 
-        ParseCurso curso = new ParseCurso("Ciência da Computação4", "Um curso bacana", faculdade );
-       curso.saveInBackground();
+     //   ParseCurso curso = new ParseCurso("Ciência da Computação4", "Um curso bacana", faculdade );
+      // curso.saveInBackground();
 
-        ParseAluno aluno = new ParseAluno("Diogo", "drc2@cin.ufpe.br", "senhaAleatoria", curso); //ver como colocar null na foto
-        aluno.saveInBackground();
+       // ParseAluno aluno = new ParseAluno("Diogo", "drc2@cin.ufpe.br", "senhaAleatoria", curso); //ver como colocar null na foto
+       // aluno.saveInBackground();
 
-        ParseCadeira cadeira = new ParseCadeira("Programação 3", "Leopoldo", curso);
-        cadeira.saveInBackground();
+        //ParseCadeira cadeira = new ParseCadeira("Programação 3", "Leopoldo", curso);
+        //cadeira.saveInBackground();
 
-        ParseCadeiraFavorita cadeiraFavorita = new ParseCadeiraFavorita(aluno, cadeira);
-        cadeiraFavorita.saveInBackground();
-
-        int a = 2;
+        //ParseCadeiraFavorita cadeiraFavorita = new ParseCadeiraFavorita(aluno, cadeira);
+        //cadeiraFavorita.saveInBackground();
+        //cadeiraFavorita.deleteInBackground();
+        //int a = 2;
         /*
 
 

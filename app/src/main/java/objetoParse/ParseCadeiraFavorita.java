@@ -26,8 +26,8 @@ public class ParseCadeiraFavorita extends ParseObject {
         put("aluno", aluno);
     }
 
-    public ParseCadeira getCadeira(){
-        return (ParseCadeira) getParseObject("cadeira");
+    public ParseObject getCadeira(){
+        return getParseObject("cadeira");
     }
 
     public void setCadeira(ParseCadeira cadeira){

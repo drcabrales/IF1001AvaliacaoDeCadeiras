@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 import adapter.ListaCadeiraAdapter;
 import database.Database;
+import objetoParse.ParseAluno;
 import objetoParse.ParseCadeira;
 import objetoParse.ParseCurso;
 import repositorio.RepositorioCadeira;
@@ -103,8 +104,7 @@ public class ListaCadeiraFragment extends Fragment {
         final ArrayList<ParseObject> listaCurso = repCurso.getAll();
 
         ArrayList <String> nomeCursos = new ArrayList <String> ();
-        
-        
+
 
         for (int i = 0; i < listaCurso.size(); i++){
             nomeCursos.add(((ParseCurso)listaCurso.get(i)).getNome());
