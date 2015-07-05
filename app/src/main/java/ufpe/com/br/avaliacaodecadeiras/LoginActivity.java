@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -38,7 +39,7 @@ import repositorioParse.RepositorioAlunoParse;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, CadastroUsuarioFragment.OnFragmentInteractionListener {
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -84,6 +85,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        Button cadastrese = (Button) findViewById(R.id.btnCadastrese);
+        final Intent intent = new Intent(this, CadastroUsuarioActivity.class);
+        cadastrese.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent);
             }
         });
 
@@ -247,6 +257,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
     /**
