@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.TextView;
 
+import database.Database;
 import objetoParse.ParseAluno;
+import repositorioParse.RepositorioAlunoParse;
 
 
 public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
@@ -37,6 +39,9 @@ public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_cadeiras_favoritas);
 
+            Bundle bundle = getIntent().getExtras();
+            alunoLogado = (ParseAluno) bundle.getSerializable("alunoLogado");
+
         /*
             Intent intent = getIntent();
             Bundle params = intent.getExtras();
@@ -48,8 +53,7 @@ public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
             alunoLogado = (ParseAluno) extras.getSerializable("alunoLogado");
             alunoLogado = (ParseAluno) getIntent().getSerializableExtra("aluno");
           */
-        ParseAluno aluno2 = (ParseAluno) getIntent().getExtras().getSerializable("alunoLogado");
-            int a = 5;
+        //ParseAluno aluno2 = (ParseAluno) getIntent().getExtras().getSerializable("alunoLogado");
             mNavigationDrawerFragment = (NavigationDrawerFragment)
                     getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
             mTitle = getTitle();
@@ -70,7 +74,12 @@ public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
                 mTitle = "Favoritas";
                 FragmentManager fragmentManager = getSupportFragmentManager();
 
+                //TODO: PEGAR O ALUNOLOGADO VINDO DA TELA DE LOGIN
+                String idAlunoLogado = getIntent().getStringExtra("chaveAlunoLogado");
 
+                Database db = new Database(this);
+                RepositorioAlunoParse repAluno = new RepositorioAlunoParse(db);
+                alunoLogado = repAluno.getById(idAlunoLogado);
 
                 final Bundle bundle = new Bundle();
                 bundle.putSerializable("aluno", alunoLogado);

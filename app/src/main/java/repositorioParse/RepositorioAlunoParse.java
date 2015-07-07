@@ -34,6 +34,9 @@ public class RepositorioAlunoParse {
     public ParseAluno get(String email){
         return db.getParseAlunoObj(email);
     }
+    public ParseAluno getById(String id){
+        return db.getParseAlunoObjById(id);
+    }
     public ParseAluno login(String email, String password) {return db.login(email,password);}
 
 

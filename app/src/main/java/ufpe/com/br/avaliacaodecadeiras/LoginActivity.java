@@ -291,9 +291,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>  
 
             if (alunoLogado.getEmail() != null) {
                 Intent intent = new Intent(mActivity, AvaliacaoDeCadeirasMainActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("aluno", alunoLogado);
-                intent.putExtras(bundle);
+                intent.putExtra("chaveAlunoLogado", alunoLogado.getObjectId());
+                //Bundle bundle = new Bundle();
+                //bundle.putSerializable("alunoLogado", alunoLogado);
+                //intent.putExtras(bundle);
 
    /*           Bundle params = new Bundle();
                 params.putSerializable("alunoLogado", alunoLogado);

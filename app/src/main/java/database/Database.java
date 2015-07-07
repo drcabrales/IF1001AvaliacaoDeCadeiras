@@ -383,6 +383,18 @@ public class Database extends SQLiteOpenHelper{
         return retorno;
     }
 
+    public ParseAluno getParseAlunoObjById (String id){
+        ParseAluno retorno = new ParseAluno();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Aluno");
+        query.whereEqualTo("objectId", id);
+        try {
+            retorno = (ParseAluno) query.getFirst();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
     public ParseAvaliacao getParseAvaliacaoObj (ParseAluno aluno, ParseCadeira cadeira){
         ParseAvaliacao retorno = new ParseAvaliacao();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Avaliacao");
