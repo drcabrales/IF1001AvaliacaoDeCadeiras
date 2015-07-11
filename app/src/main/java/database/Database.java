@@ -1004,5 +1004,59 @@ public class Database extends SQLiteOpenHelper{
         return retorno;
     }
 
+    public double getMediaCategoriaAvaliacaoByCadeira(ParseCategoriaAvaliacaoCadeira categoriaAvaliacaoCadeira, ParseCadeira cadeira){
+        //pegando primeiro as avaliações da cadeira corrente
+        ArrayList<ParseObject> listaAvaliacoes = new ArrayList<ParseObject>();
+        ParseQuery<ParseObject> queryAvaliacaoes = ParseQuery.getQuery("Avaliacao");
+        queryAvaliacaoes.whereEqualTo("cadeira",cadeira);
+        try {
+            listaAvaliacoes = (ArrayList<ParseObject>) queryAvaliacaoes.find();
+        } catch (com.parse.ParseException e) {
+            e.printStackTrace();
+        }
+
+        double media;
+        //SE TEM AVALIAÇÕES, FAZ
+        if(listaAvaliacoes.size() > 0){
+            //pegando a média da categoria passada, da cadeira corrente passada
+            ArrayList<ParseObject> lista = new ArrayList<ParseObject>();
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("AvaliacaoCategoria");
+            query.whereEqualTo("categoriaAvaliacaoCadeira",categoriaAvaliacaoCadeira);
+            query.whereContainedIn("avaliacao", listaAvaliacoes);
+            try {
+                lista = (ArrayList<ParseObject>) query.find();
+            } catch (com.parse.ParseException e) {
+                e.printStackTrace();
+            }
+
+            double somaNotas = 0;
+            ParseAvaliacaoCategoria aux = new ParseAvaliacaoCategoria();
+            for (int i = 0; i <lista.size() ; i++) {
+                aux = (ParseAvaliacaoCategoria) lista.get(i);
+                somaNotas = somaNotas + aux.getNota();
+            }
+
+            media = somaNotas/lista.size();
+        }else{ //senao
+            media = 99;
+        }
+
+
+        return media;
+    }
+
+    public ArrayList<ParseObject> getAllAvaliacaoByCadeira(ParseCadeira cadeira){
+        ArrayList<ParseObject> listaAvaliacoes = new ArrayList<ParseObject>();
+        ParseQuery<ParseObject> queryAvaliacaoes = ParseQuery.getQuery("Avaliacao");
+        queryAvaliacaoes.whereEqualTo("cadeira",cadeira);
+        try {
+            listaAvaliacoes = (ArrayList<ParseObject>) queryAvaliacaoes.find();
+        } catch (com.parse.ParseException e) {
+            e.printStackTrace();
+        }
+
+        return listaAvaliacoes;
+    }
+
 
 }

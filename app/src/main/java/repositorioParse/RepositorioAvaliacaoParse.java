@@ -8,6 +8,7 @@ import database.Database;
 import objetoParse.ParseAluno;
 import objetoParse.ParseAvaliacao;
 import objetoParse.ParseCadeira;
+import objetoParse.ParseCategoriaAvaliacaoCadeira;
 
 
 /**
@@ -36,6 +37,14 @@ public class RepositorioAvaliacaoParse {
 
     public ParseAvaliacao get(ParseAluno parseAluno, ParseCadeira parseCadeira){
         return db.getParseAvaliacaoObj(parseAluno, parseCadeira);
+    }
+
+    public ArrayList<ParseObject> getAllByCadeira(ParseCadeira parseCadeira){
+        return db.getAllAvaliacaoByCadeira(parseCadeira);
+    }
+
+    public double getMediaCategoriaAvaliacaoByCadeira(ParseCategoriaAvaliacaoCadeira categoria, ParseCadeira cadeira){
+        return  db.getMediaCategoriaAvaliacaoByCadeira(categoria, cadeira);
     }
 
 

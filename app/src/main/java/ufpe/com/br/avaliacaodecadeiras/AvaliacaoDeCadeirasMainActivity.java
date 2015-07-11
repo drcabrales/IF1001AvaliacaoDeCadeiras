@@ -92,9 +92,19 @@ public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
                         .replace(R.id.container, fragment)
                         .commit();
             } else if(position == 1){
+
+                String idAlunoLogado = getIntent().getStringExtra("chaveAlunoLogado");
+                Database db = new Database(this);
+                RepositorioAlunoParse repAluno = new RepositorioAlunoParse(db);
+                alunoLogado = repAluno.getById(idAlunoLogado);
+
+                final Bundle bundle = new Bundle();
+                bundle.putSerializable("aluno", alunoLogado);
+
                 mTitle = "Cadeiras";
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 ListaCadeiraFragment fragment = new ListaCadeiraFragment();
+                fragment.setArguments(bundle);
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, fragment)
                         .commit();

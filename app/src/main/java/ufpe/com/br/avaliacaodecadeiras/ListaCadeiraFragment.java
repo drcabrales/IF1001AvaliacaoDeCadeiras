@@ -150,8 +150,9 @@ public class ListaCadeiraFragment extends Fragment {
             }
         });
 
-        
-        
+
+
+        final Bundle mBundle = this.getArguments();
 
         actv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -168,7 +169,11 @@ public class ListaCadeiraFragment extends Fragment {
                     }
                 }
 
+                ParseAluno alunoLogado = (ParseAluno) mBundle.getSerializable("aluno");
+
                 bundle.putSerializable("cadeira", cadeiraSelecionado);
+                bundle.putSerializable("aluno", alunoLogado);
+
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 VisualizarCadeiraFragment fragment = new VisualizarCadeiraFragment();
@@ -179,12 +184,17 @@ public class ListaCadeiraFragment extends Fragment {
             }
         });
 
+
         listaCadeiras.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ParseCadeira cadeiraSelecionada = (ParseCadeira) parent.getAdapter().getItem(position);
-                //passando a cadeira clicada para o próximo fragment
+                //passando a cadeira clicada para o prï¿½ximo fragment
+
+                ParseAluno alunoLogado = (ParseAluno) mBundle.getSerializable("aluno");
+
                 bundle.putSerializable("cadeira", cadeiraSelecionada);
+                bundle.putSerializable("aluno", alunoLogado);
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 VisualizarCadeiraFragment fragment = new VisualizarCadeiraFragment();
