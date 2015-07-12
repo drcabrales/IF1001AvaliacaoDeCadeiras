@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':tests', ':samples:Iconicus', ':junitTests', ':facebook', ':samples:HelloFacebookSample', ':samples:MessengerSendSample'
