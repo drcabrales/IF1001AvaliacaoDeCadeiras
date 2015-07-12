@@ -73,6 +73,15 @@
         </LinearLayout>
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:textSize="16sp"
+            android:text="Avaliações: "
+            android:id="@+id/txtQtdeAvaliacoes" />
+
+        <TextView
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
@@ -87,24 +96,6 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:id="@+id/listCategoriaavaliacao" />
-
-        <TextView
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Métodos de avaliação:"
-            android:textSize="16sp"
-            android:id="@+id/txtmetodosavaliacao" />
-
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Prova, projeto, seminário"
-            android:textSize="16sp"
-            android:id="@+id/txtmetodosavaliacaovalue" />
 
         <TextView
             android:layout_marginTop="20dp"

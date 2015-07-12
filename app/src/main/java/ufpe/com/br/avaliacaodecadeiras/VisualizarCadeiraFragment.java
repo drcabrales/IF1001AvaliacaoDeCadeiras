@@ -24,6 +24,8 @@ import objetoParse.ParseAvaliacao;
 import objetoParse.ParseCadeira;
 import objetoParse.ParseCategoriaAvaliacaoCadeira;
 import objetoParse.ParseComentario;
+import objetoParse.ParseMetodoAvaliacaoCadeira;
+import repositorioParse.RepositorioAvaliacaoMetodoParse;
 import repositorioParse.RepositorioAvaliacaoParse;
 import repositorioParse.RepositorioCategoriaAvaliacaoCadeiraParse;
 import repositorioParse.RepositorioComentarioParse;
@@ -91,7 +93,7 @@ public class VisualizarCadeiraFragment extends Fragment {
         TextView nomeCadeira = (TextView) rootView.findViewById(R.id.txtNomeCadeira);
         TextView nomeProfessor = (TextView) rootView.findViewById(R.id.txtProfessor);
         ListView categoriaAvaliacao = (ListView) rootView.findViewById(R.id.listCategoriaavaliacao);
-        TextView metodosAvaliacao = (TextView) rootView.findViewById(R.id.txtmetodosavaliacaovalue);
+        TextView qtdeAvaliacoes = (TextView) rootView.findViewById(R.id.txtQtdeAvaliacoes);
         ListView comentarios = (ListView) rootView.findViewById(R.id.listcomentarios);
 
         nomeCadeira.setText(cadeiraSelecionada.getString("nome"));
@@ -102,16 +104,17 @@ public class VisualizarCadeiraFragment extends Fragment {
 
         //setando adapter da lista de categoria avaliação, passando a cadeira corrente
         Database db = new Database(this.getActivity());
+        RepositorioAvaliacaoParse repAvaliacao = new RepositorioAvaliacaoParse(db);
         RepositorioCategoriaAvaliacaoCadeiraParse repCategorias = new RepositorioCategoriaAvaliacaoCadeiraParse(db);
         ArrayList<ParseObject> listaCategorias = repCategorias.getAll();
         ListaCategoriaAvaliacaoAdapter adapter = new ListaCategoriaAvaliacaoAdapter(this.getActivity(), listaCategorias, db, cadeiraSelecionada);
         categoriaAvaliacao.setAdapter(adapter);
 
-        //TODO: ADICIONAR QUANTIDADE DE AVALIAÇÕES DA CADEIRA NA TELA
-        //TODO: PUXAR METODO DE AVALIAÇÃO DO BANCO. TALVEZ TIRAR DA AVALIACAO E LINKAR DIRETO COM A CADEIRA (METODOS SERAO FIXOS?)
+        //Setando a quantidade de avaliações totais na tela
+        ArrayList<ParseObject> avaliacoesTotais = repAvaliacao.getAllByCadeira(cadeiraSelecionada);
+        qtdeAvaliacoes.setText("Avaliações: " + avaliacoesTotais.size());
 
         //com cadeira, pega avaliações
-        RepositorioAvaliacaoParse repAvaliacao = new RepositorioAvaliacaoParse(db);
         ArrayList<ParseObject> listaAvaliacoes =  repAvaliacao.getAllByCadeira(cadeiraSelecionada);
         //com as avaliações, pega os comentários
         ArrayList<ParseComentario> listaComentarios = new ArrayList<ParseComentario>();
@@ -125,8 +128,18 @@ public class VisualizarCadeiraFragment extends Fragment {
             }
         }
 
-        //Setando adapter da lista de comentários
-        ListaComentarioAdapter adapterComentarios = new ListaComentarioAdapter(this.getActivity(), listaComentarios);
+        //Setando adapter da lista de comentários (passar lista de metodos de avaliação?)
+        RepositorioAvaliacaoMetodoParse repAvMetodo = new RepositorioAvaliacaoMetodoParse(db);
+        ArrayList<ArrayList<ParseMetodoAvaliacaoCadeira>> listaMetodos = new  ArrayList<ArrayList<ParseMetodoAvaliacaoCadeira>>();
+
+        for (int i = 0; i < listaAvaliacoes.size(); i++) {
+            ParseAvaliacao avaliacaoAux = (ParseAvaliacao) listaAvaliacoes.get(i);
+            ArrayList<ParseMetodoAvaliacaoCadeira> avaliacaoMetodoAux = repAvMetodo.getByAvaliacao(avaliacaoAux);
+
+            listaMetodos.add(avaliacaoMetodoAux);
+        }
+
+        ListaComentarioAdapter adapterComentarios = new ListaComentarioAdapter(this.getActivity(), listaComentarios, listaMetodos);
         comentarios.setAdapter(adapterComentarios);
 
         final Bundle bundleEnvio = new Bundle();

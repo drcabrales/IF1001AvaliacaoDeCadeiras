@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import objetoParse.ParseCadeira;
 import objetoParse.ParseComentario;
 import objetoParse.ParseCurso;
+import objetoParse.ParseMetodoAvaliacaoCadeira;
 import ufpe.com.br.avaliacaodecadeiras.R;
 
 /**
@@ -23,12 +24,14 @@ import ufpe.com.br.avaliacaodecadeiras.R;
  */
 public class ListaComentarioAdapter extends BaseAdapter{
     private ArrayList<ParseComentario> lista;
+    private ArrayList<ArrayList<ParseMetodoAvaliacaoCadeira>> listaMetodos;
     private Context context;
 
-    public ListaComentarioAdapter(Context context, ArrayList<ParseComentario> lista){
+    public ListaComentarioAdapter(Context context, ArrayList<ParseComentario> lista, ArrayList<ArrayList<ParseMetodoAvaliacaoCadeira>> listaMetodos){
         super();
         this.context = context;
         this.lista = lista;
+        this.listaMetodos = listaMetodos;
     }
 
     @Override
@@ -57,14 +60,27 @@ public class ListaComentarioAdapter extends BaseAdapter{
             holder.txtComentario = (TextView) convertView.findViewById(R.id.txtComentario);
             holder.txtAno = (TextView) convertView.findViewById(R.id.txtAno);
             holder.txtSemestre = (TextView) convertView.findViewById(R.id.txtSemestre);
+            holder.txtMetodos = (TextView) convertView.findViewById(R.id.txtMetodosAvaliacao);
 
 
             ParseComentario comentario = lista.get(position);
+
+            String metodosAv = "Métodos de avaliação: ";
+            for (int i = 0; i < listaMetodos.get(position).size(); i++) {
+                if(i == listaMetodos.get(position).size()-1){
+                    metodosAv = metodosAv + listaMetodos.get(position).get(i).getNome() + ".";
+                }else{
+                    metodosAv = metodosAv + listaMetodos.get(position).get(i).getNome() + ", ";
+                }
+
+            }
+
 
 
                 holder.txtComentario.setText(comentario.getTexto());
                 holder.txtAno.setText("Ano: " + comentario.getAno());
                 holder.txtSemestre.setText("Semestre: " + comentario.getSemestre());
+                holder.txtMetodos.setText(metodosAv);
 
             convertView.setTag(holder);
         } else {
@@ -78,5 +94,6 @@ public class ListaComentarioAdapter extends BaseAdapter{
         TextView txtComentario;
         TextView txtAno;
         TextView txtSemestre;
+        TextView txtMetodos;
     }
 }

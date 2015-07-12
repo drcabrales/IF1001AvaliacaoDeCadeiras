@@ -2,6 +2,7 @@ package repositorioParse;
 
 import com.parse.ParseObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +36,10 @@ public class RepositorioAvaliacaoMetodoParse {
     }
     public ParseAvaliacaoMetodo get(ParseAvaliacao parseAvaliacao, ParseMetodoAvaliacaoCadeira parseMetodoAvaliacaoCadeira){
         return db.getParseAvaliacaoMetodoObj(parseAvaliacao, parseMetodoAvaliacaoCadeira);
+    }
+
+    public ArrayList<ParseMetodoAvaliacaoCadeira> getByAvaliacao(ParseAvaliacao avaliacao){
+        return db.getParseMetodoAvaliacaoByAvaliacao(avaliacao);
     }
 
 

@@ -29,4 +29,10 @@
             android:id="@+id/txtSemestre" />
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Métodos de avaliacao vindo do banco"
+        android:id="@+id/txtMetodosAvaliacao" />
 </LinearLayout>

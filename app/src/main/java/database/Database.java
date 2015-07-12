@@ -1058,5 +1058,27 @@ public class Database extends SQLiteOpenHelper{
         return listaAvaliacoes;
     }
 
+    public ArrayList<ParseMetodoAvaliacaoCadeira> getParseMetodoAvaliacaoByAvaliacao(ParseAvaliacao avaliacao){
+        ArrayList<ParseObject> aux = new ArrayList<ParseObject>();
+        ArrayList<ParseMetodoAvaliacaoCadeira> retorno = new ArrayList<ParseMetodoAvaliacaoCadeira>();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("AvaliacaoMetodo");
+        query.whereEqualTo("avaliacao", avaliacao);
+        try {
+            aux = (ArrayList<ParseObject>) query.find();
+
+            for (int i = 0; i < aux.size(); i++) {
+                ParseAvaliacaoMetodo aux2 = new ParseAvaliacaoMetodo();
+                aux2 = (ParseAvaliacaoMetodo) aux.get(i);
+
+                ParseMetodoAvaliacaoCadeira metodoretorno = new ParseMetodoAvaliacaoCadeira();
+                metodoretorno = aux2.getMetodoAvaliacaoCadeira().fetchIfNeeded();
+                retorno.add(metodoretorno);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return retorno;
+    }
+
 
 }
