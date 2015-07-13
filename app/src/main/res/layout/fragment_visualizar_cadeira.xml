@@ -1,16 +1,14 @@
-<ScrollView
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    tools:context="ufpe.com.br.avaliacaodecadeiras.VisualizarCadeiraFragment"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:clickable="true">
+
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/bg3">
+        tools:context="ufpe.com.br.avaliacaodecadeiras.VisualizarCadeiraFragment"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:background="@drawable/bg3"
+        android:weightSum="1">
 
         <LinearLayout
             android:layout_width="fill_parent" android:layout_height="wrap_content"
@@ -92,10 +90,11 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="131dp"
+            android:layout_height="67dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:id="@+id/listCategoriaavaliacao" />
+            android:id="@+id/listCategoriaavaliacao"
+            android:layout_weight="0.29" />
 
         <TextView
             android:layout_marginTop="20dp"
@@ -108,10 +107,11 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="113dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:id="@+id/listcomentarios" />
+            android:id="@+id/listcomentarios"
+            android:layout_weight="0.36" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -154,4 +154,3 @@
 
         </LinearLayout>
     </LinearLayout>
-</ScrollView>
