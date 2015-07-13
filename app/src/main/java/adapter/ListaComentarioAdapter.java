@@ -54,7 +54,7 @@ public class ListaComentarioAdapter extends BaseAdapter{
         final ViewHolder holder;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if (convertView == null) {
+      //  if (convertView == null) {
             convertView = inflater.inflate(R.layout.linhalistacomentarios, null);
             holder = new ViewHolder();
             holder.txtComentario = (TextView) convertView.findViewById(R.id.txtComentario);
@@ -83,9 +83,9 @@ public class ListaComentarioAdapter extends BaseAdapter{
                 holder.txtMetodos.setText(metodosAv);
 
             convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
+      // }// else {
+       //     holder = (ViewHolder) convertView.getTag();
+       // }
 
         return convertView;
     }
