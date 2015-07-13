@@ -134,6 +134,7 @@ public class VisualizarCadeiraFragment extends Fragment {
         ArrayList<ArrayList<ParseMetodoAvaliacaoCadeira>> listaMetodos = new  ArrayList<ArrayList<ParseMetodoAvaliacaoCadeira>>();
 
         for (int i = 0; i < listaAvaliacoes.size(); i++) {
+
             ParseAvaliacao avaliacaoAux = (ParseAvaliacao) listaAvaliacoes.get(i);
 
             ArrayList<ParseMetodoAvaliacaoCadeira> avaliacaoMetodoAux = repAvMetodo.getByAvaliacao(avaliacaoAux);
