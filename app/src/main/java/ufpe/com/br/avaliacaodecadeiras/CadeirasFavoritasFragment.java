@@ -89,7 +89,7 @@ public class CadeirasFavoritasFragment extends Fragment {
 
         Bundle mBundle = new Bundle();
         mBundle = getArguments();
-        ParseAluno aluno = (ParseAluno) mBundle.getSerializable("aluno");
+        final ParseAluno aluno = (ParseAluno) mBundle.getSerializable("aluno");
         ArrayList<String> nomeCadeira = new ArrayList<String>();
 
         //pegando a listview de cadeiras
@@ -127,6 +127,7 @@ public class CadeirasFavoritasFragment extends Fragment {
                 ParseCadeira cadeiraSelecionada = (ParseCadeira) parent.getAdapter().getItem(position);
                 //passando a cadeira clicada para o próximo fragment
                 bundle.putSerializable("cadeira", cadeiraSelecionada);
+                bundle.putSerializable("aluno", aluno);
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 VisualizarCadeiraFragment fragment = new VisualizarCadeiraFragment();

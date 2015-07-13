@@ -89,6 +89,7 @@ public class VisualizarCadeiraFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_visualizar_cadeira, container, false);
         Bundle bundle = this.getArguments();
         ParseCadeira cadeiraSelecionada = (ParseCadeira) bundle.getSerializable("cadeira");
+        ParseAluno alunoLogado = (ParseAluno) bundle.getSerializable("aluno");
 
         TextView nomeCadeira = (TextView) rootView.findViewById(R.id.txtNomeCadeira);
         TextView nomeProfessor = (TextView) rootView.findViewById(R.id.txtProfessor);
@@ -134,8 +135,8 @@ public class VisualizarCadeiraFragment extends Fragment {
 
         for (int i = 0; i < listaAvaliacoes.size(); i++) {
             ParseAvaliacao avaliacaoAux = (ParseAvaliacao) listaAvaliacoes.get(i);
-            ArrayList<ParseMetodoAvaliacaoCadeira> avaliacaoMetodoAux = repAvMetodo.getByAvaliacao(avaliacaoAux);
 
+            ArrayList<ParseMetodoAvaliacaoCadeira> avaliacaoMetodoAux = repAvMetodo.getByAvaliacao(avaliacaoAux);
             listaMetodos.add(avaliacaoMetodoAux);
         }
 
@@ -144,6 +145,7 @@ public class VisualizarCadeiraFragment extends Fragment {
 
         final Bundle bundleEnvio = new Bundle();
         bundleEnvio.putSerializable("cadeira", cadeiraSelecionada);
+        bundleEnvio.putSerializable("aluno", alunoLogado);
 
         avaliar1.setOnClickListener(new View.OnClickListener() {
             @Override

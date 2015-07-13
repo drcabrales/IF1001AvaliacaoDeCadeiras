@@ -7,11 +7,35 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.parse.ParseObject;
+
+import java.util.ArrayList;
+
+import database.Database;
+import objeto.MetodoAvaliacaoCadeira;
+import objetoParse.ParseAluno;
+import objetoParse.ParseAvaliacao;
+import objetoParse.ParseAvaliacaoCategoria;
+import objetoParse.ParseAvaliacaoMetodo;
 import objetoParse.ParseCadeira;
+import objetoParse.ParseCategoriaAvaliacaoCadeira;
+import objetoParse.ParseComentario;
+import objetoParse.ParseMetodoAvaliacaoCadeira;
+import repositorio.RepositorioAvaliacaoCategoria;
+import repositorio.RepositorioAvaliacaoMetodo;
+import repositorio.RepositorioCategoriaAvaliacaoCadeira;
+import repositorioParse.RepositorioAvaliacaoCategoriaParse;
+import repositorioParse.RepositorioAvaliacaoMetodoParse;
+import repositorioParse.RepositorioCategoriaAvaliacaoCadeiraParse;
+import repositorioParse.RepositorioMetodoAvalicaoCadeiraParse;
 
 
 /**
@@ -27,6 +51,15 @@ public class AvaliarCadeirasFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private int valueDificuldade = 0;
+    private int valueSatisfacao = 0;
+    private int valueAprendizado = 0;
+    private boolean prova = false;
+    private boolean projeto = false;
+    private boolean seminario = false;
+    private boolean elaboracaoDocumento = false;
+    private boolean presenca = false;
+    private boolean participacao = false;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -72,12 +105,215 @@ public class AvaliarCadeirasFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_avaliar_cadeiras, container, false);
 
         Bundle bundle = this.getArguments();
-        ParseCadeira cadeiraSelecionada = (ParseCadeira) bundle.getSerializable("cadeira");
+        final ParseCadeira cadeiraSelecionada = (ParseCadeira) bundle.getSerializable("cadeira");
+        final ParseAluno alunoLogado = (ParseAluno) bundle.getSerializable("aluno");
 
         TextView nomeCadeira = (TextView) rootView.findViewById(R.id.txtNomeCadeiraAvaliacao);
         TextView nomeProfessor = (TextView) rootView.findViewById(R.id.txtProfessorAvaliacao);
-        ListView listaCategoriaAvaliacao = (ListView) rootView.findViewById(R.id.listCategoriaavaliacaoAvaliacao);
-        EditText editComentarios = (EditText) rootView.findViewById(R.id.edtcomentarioAvaliacao);
+
+        final SeekBar seekDificuldade = (SeekBar) rootView.findViewById(R.id.seekBar);
+        final SeekBar seekSatisfacao = (SeekBar) rootView.findViewById(R.id.seekBar2);
+        final SeekBar seekAprendizado = (SeekBar) rootView.findViewById(R.id.seekBar3);
+        final TextView valueSeekDificuldade = (TextView) rootView.findViewById(R.id.txtprogressdificuldade);
+        final TextView valueSeekAprendizado = (TextView) rootView.findViewById(R.id.txtprogressaprendizado);
+        final TextView valueSeekSatisfacao = (TextView) rootView.findViewById(R.id.txtprogresssatisfacao);
+
+        final CheckBox chkProva = (CheckBox) rootView.findViewById(R.id.checkBox);
+        final CheckBox chkProjeto = (CheckBox) rootView.findViewById(R.id.checkBox2);
+        final CheckBox chkSeminario = (CheckBox) rootView.findViewById(R.id.checkBox3);
+        final CheckBox chkElaboracaoDocumentos = (CheckBox) rootView.findViewById(R.id.checkBox4);
+        final CheckBox chkPresenca = (CheckBox) rootView.findViewById(R.id.checkBox5);
+        final CheckBox chkParticipacao = (CheckBox) rootView.findViewById(R.id.checkBox6);
+
+        final EditText edtSemestre = (EditText) rootView.findViewById(R.id.edtSemestre);
+        final EditText edtAno = (EditText) rootView.findViewById(R.id.edtAno);
+
+        final EditText editComentarios = (EditText) rootView.findViewById(R.id.edtcomentarioAvaliacao);
+
+        Button btnAvaliar = (Button) rootView.findViewById(R.id.btnsalvarAvaliacao);
+
+        seekDificuldade.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                valueSeekDificuldade.setText(progress + "");
+                valueDificuldade = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        seekSatisfacao.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                valueSeekSatisfacao.setText(progress + "");
+                valueSatisfacao = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        seekAprendizado.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                valueSeekAprendizado.setText(progress + "");
+                valueAprendizado = progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        final Database db = new Database(this.getActivity());
+        final Toast msgSucesso = Toast.makeText(this.getActivity(), "Avaliação salva com sucesso!", Toast.LENGTH_SHORT);
+        btnAvaliar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                projeto = chkProjeto.isChecked();
+                prova = chkProva.isChecked();
+                seminario = chkSeminario.isChecked();
+                elaboracaoDocumento = chkElaboracaoDocumentos.isChecked();
+                participacao = chkParticipacao.isChecked();
+                presenca = chkPresenca.isChecked();
+
+
+
+                ParseAvaliacao novaAvaliacao = new ParseAvaliacao(alunoLogado, cadeiraSelecionada);
+                novaAvaliacao.saveInBackground();
+
+                RepositorioMetodoAvalicaoCadeiraParse repMetodo = new RepositorioMetodoAvalicaoCadeiraParse(db);
+                ArrayList<ParseObject> metodos = repMetodo.getAll();
+
+                RepositorioCategoriaAvaliacaoCadeiraParse repCategoria = new RepositorioCategoriaAvaliacaoCadeiraParse(db);
+                ArrayList<ParseObject> categoria = repCategoria.getAll();
+
+                RepositorioAvaliacaoMetodoParse repAvMetodo = new RepositorioAvaliacaoMetodoParse(db);
+                RepositorioAvaliacaoCategoriaParse repAvCategoria = new RepositorioAvaliacaoCategoriaParse(db);
+
+                //adicionando os metodos de avaliação
+                for (int i = 0; i < metodos.size(); i++) {
+                    ParseMetodoAvaliacaoCadeira metodoaux = (ParseMetodoAvaliacaoCadeira) metodos.get(i);
+
+                    if(prova){
+                       if(metodoaux.getNome().equals("Prova")){
+                            ParseAvaliacaoMetodo auxMet = new ParseAvaliacaoMetodo(novaAvaliacao, metodoaux);
+                            repAvMetodo.insert(auxMet);
+                       }
+                    }
+
+                    if(projeto){
+                        if(metodoaux.getNome().equals("Projeto")){
+                            ParseAvaliacaoMetodo auxMet = new ParseAvaliacaoMetodo(novaAvaliacao, metodoaux);
+                            repAvMetodo.insert(auxMet);
+                        }
+                    }
+
+                    if(seminario){
+                        if(metodoaux.getNome().equals("Seminário")){
+                            ParseAvaliacaoMetodo auxMet = new ParseAvaliacaoMetodo(novaAvaliacao, metodoaux);
+                            repAvMetodo.insert(auxMet);
+                        }
+                    }
+
+                    if(elaboracaoDocumento){
+                        if(metodoaux.getNome().equals("Elaboração de documentos")){
+                            ParseAvaliacaoMetodo auxMet = new ParseAvaliacaoMetodo(novaAvaliacao, metodoaux);
+                            repAvMetodo.insert(auxMet);
+                        }
+                    }
+
+                    if(participacao){
+                        if(metodoaux.getNome().equals("Participação em aulas")){
+                            ParseAvaliacaoMetodo auxMet = new ParseAvaliacaoMetodo(novaAvaliacao, metodoaux);
+                            repAvMetodo.insert(auxMet);
+                        }
+                    }
+
+                    if(presenca){
+                        if(metodoaux.getNome().equals("Presença em aulas")){
+                            ParseAvaliacaoMetodo auxMet = new ParseAvaliacaoMetodo(novaAvaliacao, metodoaux);
+                            repAvMetodo.insert(auxMet);
+                        }
+                    }
+                }
+
+                //adicionando as categorias avaliadas
+                for (int i = 0; i < categoria.size(); i++) {
+                    ParseCategoriaAvaliacaoCadeira auxCat = (ParseCategoriaAvaliacaoCadeira) categoria.get(i);
+
+                    if(auxCat.getNome().equals("Dificuldade")){
+                        ParseAvaliacaoCategoria avCateg = new ParseAvaliacaoCategoria(novaAvaliacao, auxCat, valueDificuldade);
+                        repAvCategoria.insert(avCateg);
+                    }
+
+                    if(auxCat.getNome().equals("Satisfação")){
+                        ParseAvaliacaoCategoria avCateg = new ParseAvaliacaoCategoria(novaAvaliacao, auxCat, valueSatisfacao);
+                        repAvCategoria.insert(avCateg);
+                    }
+
+                    if(auxCat.getNome().equals("Aprendizado")){
+                        ParseAvaliacaoCategoria avCateg = new ParseAvaliacaoCategoria(novaAvaliacao, auxCat, valueAprendizado);
+                        repAvCategoria.insert(avCateg);
+                    }
+                }
+
+                //adicionando comentario
+                String comentarioString = editComentarios.getText().toString();
+                String semestre = edtSemestre.getText().toString();
+                String ano = edtAno.getText().toString();
+                ParseComentario comentario = new ParseComentario(novaAvaliacao, ano, semestre, comentarioString);
+                comentario.saveInBackground();
+
+                //limpando os campos
+                projeto = false;
+                prova = false;
+                seminario = false;
+                elaboracaoDocumento = false;
+                participacao = false;
+                presenca = false;
+
+                edtSemestre.setText("");
+                edtAno.setText("");
+                editComentarios.setText("");
+
+                valueSeekAprendizado.setText("0");
+                valueSeekDificuldade.setText("0");
+                valueSeekSatisfacao.setText("0");
+
+                seekAprendizado.setProgress(0);
+                seekDificuldade.setProgress(0);
+                seekSatisfacao.setProgress(0);
+
+                //avisando que foi cadastrado com sucesso
+                msgSucesso.show();
+
+
+            }
+        });
+
+
 
         nomeCadeira.setText(cadeiraSelecionada.getString("nome"));
         nomeProfessor.setText(cadeiraSelecionada.getString("nomeProfessor"));

@@ -7,7 +7,8 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/bg3">
+        android:background="@drawable/bg3"
+        android:id="@+id/lt">
 
         <LinearLayout
             android:layout_width="fill_parent" android:layout_height="wrap_content"
@@ -50,7 +51,8 @@
                     android:button="@drawable/star"
                     android:focusable="false"
                     android:background="#00ffffff"
-                    android:layout_weight="0.3"/>
+                    android:layout_weight="0.3"
+                    android:checked="false" />
             </LinearLayout>
         </LinearLayout>
 
@@ -63,13 +65,229 @@
             android:textSize="16sp"
             android:id="@+id/txtopinar" />
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:id="@+id/listCategoriaavaliacaoAvaliacao" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+
+                android:layout_marginLeft="20dp"
+                android:layout_weight="0.3"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dificuldade:"
+                android:textSize="16sp"
+                android:id="@+id/txtlabeldificuldade" />
+
+            <SeekBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:max="10"
+                android:id="@+id/seekBar"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_gravity="right"
+            android:layout_marginRight="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="12sp"
+            android:id="@+id/txtprogressdificuldade" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:layout_weight="0.3"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Satisfação:"
+                android:textSize="16sp"
+                android:id="@+id/txtlabelsatisfacao" />
+
+        <SeekBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar2"
+            android:max="10"
+            android:layout_weight="0.7" />
+
+    </LinearLayout>
+
+        <TextView
+            android:layout_gravity="right"
+            android:layout_marginRight="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="12sp"
+            android:id="@+id/txtprogresssatisfacao" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:layout_weight="0.3"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aprendizado:"
+                android:textSize="16sp"
+                android:id="@+id/txtlabelaprendizado" />
+
+        <SeekBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBar3"
+            android:max="10"
+            android:layout_weight="0.8" />
+
+    </LinearLayout>
+
+        <TextView
+            android:layout_gravity="right"
+            android:layout_marginRight="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="12sp"
+            android:id="@+id/txtprogressaprendizado" />
+
+
 
         <TextView
             android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Métodos de avaliação:"
+            android:textSize="16sp"
+            android:id="@+id/txtmetodos" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prova"
+                android:id="@+id/checkBox"
+                android:checked="false" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Projeto"
+                android:id="@+id/checkBox2"
+                android:checked="false" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seminário"
+                android:id="@+id/checkBox3"
+                android:checked="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Elaboração de documentos"
+                android:id="@+id/checkBox4"
+                android:checked="false" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Presença em aulas"
+                android:id="@+id/checkBox5"
+                android:checked="false" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Participação em aulas"
+                android:id="@+id/checkBox6"
+                android:checked="false" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Semestre:"
+                android:textSize="16sp"
+                android:id="@+id/txtsemestreAv" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="200dp"
+                android:inputType="number"
+                android:id="@+id/edtSemestre"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="Ano:"
+                android:textSize="16sp"
+                android:id="@+id/txtanoAv" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="250dp"
+                android:inputType="number"
+                android:id="@+id/edtAno"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <TextView
             android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
