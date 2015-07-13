@@ -63,6 +63,23 @@ public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
                     R.id.navigation_drawer,
                     (DrawerLayout) findViewById(R.id.drawer_layout));
 
+        //setando para abrir com o listar
+        String idAlunoLogado = getIntent().getStringExtra("chaveAlunoLogado");
+        Database db = new Database(this);
+        RepositorioAlunoParse repAluno = new RepositorioAlunoParse(db);
+        alunoLogado = repAluno.getById(idAlunoLogado);
+
+        final Bundle bundle2 = new Bundle();
+        bundle2.putSerializable("aluno", alunoLogado);
+
+        mTitle = "Cadeiras";
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        ListaCadeiraFragment fragment = new ListaCadeiraFragment();
+        fragment.setArguments(bundle2);
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .commit();
+
 
 
     }
@@ -70,11 +87,10 @@ public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-            if(position == 2){
+            if(position == 1){
                 mTitle = "Favoritas";
                 FragmentManager fragmentManager = getSupportFragmentManager();
 
-                //TODO: PEGAR O ALUNOLOGADO VINDO DA TELA DE LOGIN
                 String idAlunoLogado = getIntent().getStringExtra("chaveAlunoLogado");
 
                 Database db = new Database(this);
@@ -91,7 +107,7 @@ public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, fragment)
                         .commit();
-            } else if(position == 1){
+            } else if(position == 0){
 
                 String idAlunoLogado = getIntent().getStringExtra("chaveAlunoLogado");
                 Database db = new Database(this);
@@ -108,21 +124,15 @@ public class AvaliacaoDeCadeirasMainActivity extends ActionBarActivity
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, fragment)
                         .commit();
-            }else{
-                mTitle = "Perfil";
-                //TODO
             }
     }
 
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
-                break;
-            case 2:
                 mTitle = getString(R.string.title_section2);
                 break;
-            case 3:
+            case 2:
                 mTitle = getString(R.string.title_section3);
                 break;
         }
