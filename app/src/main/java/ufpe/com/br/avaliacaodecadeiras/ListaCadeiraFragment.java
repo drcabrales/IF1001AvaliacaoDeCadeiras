@@ -119,6 +119,7 @@ public class ListaCadeiraFragment extends Fragment {
         actv.setAdapter(adapterAutoCompleteCurso);
 
         final Activity activity = this.getActivity();
+        final Bundle mBundle = this.getArguments();
         
         actv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -145,14 +146,15 @@ public class ListaCadeiraFragment extends Fragment {
                 ArrayAdapter<String> adapterAutoCompleteCadeira = new ArrayAdapter<String>(activity, android.R.layout.simple_list_item_1, nomeCadeira);
                 actv2.setAdapter(adapterAutoCompleteCadeira);
 
-                ListaCadeiraAdapter adapter = new ListaCadeiraAdapter(activity, listaCadeira);
+                ParseAluno alunoLogado = (ParseAluno) mBundle.getSerializable("aluno");
+                ListaCadeiraAdapter adapter = new ListaCadeiraAdapter(activity, listaCadeira,alunoLogado);
                 listaCadeiras.setAdapter(adapter);
             }
         });
 
 
 
-        final Bundle mBundle = this.getArguments();
+
 
         actv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

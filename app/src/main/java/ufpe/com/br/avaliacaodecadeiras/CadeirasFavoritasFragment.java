@@ -115,7 +115,7 @@ public class CadeirasFavoritasFragment extends Fragment {
         }
 
 
-        ListaCadeiraAdapter adapter = new ListaCadeiraAdapter(this.getActivity(),listaCadeirasF);
+        ListaCadeiraAdapter adapter = new ListaCadeiraAdapter(this.getActivity(),listaCadeirasF, aluno);
 
         //setando o adapter da listview
         listaCadeiras.setAdapter(adapter);

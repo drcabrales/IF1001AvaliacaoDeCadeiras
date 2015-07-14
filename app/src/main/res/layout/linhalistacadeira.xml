@@ -52,5 +52,6 @@
         android:focusable="false"
         android:button="@drawable/star"
         android:background="#00ffffff"
-        android:layout_weight="0.3"/>
+        android:layout_weight="0.3"
+        android:checked="false" />
 </LinearLayout>

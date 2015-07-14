@@ -237,6 +237,7 @@ public class Database extends SQLiteOpenHelper{
         ParseCadeiraFavorita cadeiraFavorita = new ParseCadeiraFavorita();
         cadeiraFavorita.put("aluno",parseCadeiraFavorita.getAluno());
         cadeiraFavorita.put("cadeira", parseCadeiraFavorita.getCadeira());
+        cadeiraFavorita.saveInBackground();
     }
 
     public void deleteCadeiraFavoritaObj (ParseCadeiraFavorita parseCadeiraFavorita){

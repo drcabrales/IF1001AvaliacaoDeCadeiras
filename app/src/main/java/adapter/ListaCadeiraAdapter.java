@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,8 +14,12 @@ import com.parse.ParseObject;
 
 import java.util.ArrayList;
 
+import database.Database;
+import objetoParse.ParseAluno;
 import objetoParse.ParseCadeira;
+import objetoParse.ParseCadeiraFavorita;
 import objetoParse.ParseCurso;
+import repositorioParse.RepositorioCadeiraFavoritaParse;
 import repositorioParse.RepositorioCursoParse;
 import ufpe.com.br.avaliacaodecadeiras.R;
 
@@ -24,11 +29,13 @@ import ufpe.com.br.avaliacaodecadeiras.R;
 public class ListaCadeiraAdapter extends BaseAdapter {
     private ArrayList<ParseObject> lista;
     private Context context;
+    private ParseAluno alunoLogado;
 
-    public ListaCadeiraAdapter(Context context, ArrayList<ParseObject> lista){
+    public ListaCadeiraAdapter(Context context, ArrayList<ParseObject> lista, ParseAluno alunoLogado){
         super();
         this.context = context;
         this.lista = lista;
+        this.alunoLogado = alunoLogado;
     }
 
     @Override
@@ -51,20 +58,15 @@ public class ListaCadeiraAdapter extends BaseAdapter {
         final ViewHolder holder;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if (convertView == null) {
             convertView = inflater.inflate(R.layout.linhalistacadeira, null);
             holder = new ViewHolder();
             holder.txtNome = (TextView) convertView.findViewById(R.id.txtNome);
             holder.txtProfessor = (TextView) convertView.findViewById(R.id.txtProfessor);
             holder.txtCurso = (TextView) convertView.findViewById(R.id.txtCurso);
             holder.txtNota = (TextView) convertView.findViewById(R.id.txtNota);
+            holder.favoritar = (CheckBox) convertView.findViewById(R.id.favorite);
 
-            //acho que não precisa fazer nada com isso
-          //  holder.favorite = (ImageView) convertView.findViewById(R.id.favorite);
-
-            //TODO: fazer calculo da nota geral, puxando a avaliação da cadeira aqui
-
-            ParseCadeira cadeira = (ParseCadeira) lista.get(position);
+            final ParseCadeira cadeira = (ParseCadeira) lista.get(position);
             ParseCurso curso = null;
             try {
                 curso = (ParseCurso) cadeira.getParseObject("curso").fetchIfNeeded();
@@ -76,10 +78,32 @@ public class ListaCadeiraAdapter extends BaseAdapter {
             holder.txtProfessor.setText(cadeira.getNomeProfessor());
             holder.txtCurso.setText(curso.getNome());
 
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
+        //setando a estrela assim que entra na tela
+        Database db = new Database(context);
+        final RepositorioCadeiraFavoritaParse cadeiraFavoritaParse = new RepositorioCadeiraFavoritaParse(db);
+        ParseCadeiraFavorita favorita = cadeiraFavoritaParse.get(alunoLogado, cadeira);
+
+        if(favorita.getObjectId() != null){
+            holder.favoritar.setChecked(true);
+        }else{
+            holder.favoritar.setChecked(false);
         }
+
+        //logica de favoritar
+        holder.favoritar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.favoritar.isChecked()){
+                    ParseCadeiraFavorita aux = new ParseCadeiraFavorita(alunoLogado, cadeira);
+                    cadeiraFavoritaParse.insert(aux);
+                }else{
+                    ParseCadeiraFavorita aux = cadeiraFavoritaParse.get(alunoLogado, cadeira);
+                    cadeiraFavoritaParse.delete(aux);
+                }
+            }
+        });
+
+            convertView.setTag(holder);
 
         return convertView;
     }
@@ -89,6 +113,6 @@ public class ListaCadeiraAdapter extends BaseAdapter {
         TextView txtProfessor;
         TextView txtCurso;
         TextView txtNota;
-        ImageView favorite;
+        CheckBox favoritar;
     }
 }

@@ -51,7 +51,8 @@
                     android:button="@drawable/star"
                     android:focusable="false"
                     android:background="#00ffffff"
-                    android:layout_weight="0.3"/>
+                    android:layout_weight="0.3"
+                    android:checked="false" />
 
                 <Button
                     android:id="@+id/btnavaliar"

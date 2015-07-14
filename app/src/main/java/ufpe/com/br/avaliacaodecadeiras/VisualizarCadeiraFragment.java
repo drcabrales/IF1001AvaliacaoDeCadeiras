@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,11 +23,13 @@ import database.Database;
 import objetoParse.ParseAluno;
 import objetoParse.ParseAvaliacao;
 import objetoParse.ParseCadeira;
+import objetoParse.ParseCadeiraFavorita;
 import objetoParse.ParseCategoriaAvaliacaoCadeira;
 import objetoParse.ParseComentario;
 import objetoParse.ParseMetodoAvaliacaoCadeira;
 import repositorioParse.RepositorioAvaliacaoMetodoParse;
 import repositorioParse.RepositorioAvaliacaoParse;
+import repositorioParse.RepositorioCadeiraFavoritaParse;
 import repositorioParse.RepositorioCategoriaAvaliacaoCadeiraParse;
 import repositorioParse.RepositorioComentarioParse;
 
@@ -88,14 +91,16 @@ public class VisualizarCadeiraFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_visualizar_cadeira, container, false);
         Bundle bundle = this.getArguments();
-        ParseCadeira cadeiraSelecionada = (ParseCadeira) bundle.getSerializable("cadeira");
-        ParseAluno alunoLogado = (ParseAluno) bundle.getSerializable("aluno");
+        final ParseCadeira cadeiraSelecionada = (ParseCadeira) bundle.getSerializable("cadeira");
+        final ParseAluno alunoLogado = (ParseAluno) bundle.getSerializable("aluno");
 
         TextView nomeCadeira = (TextView) rootView.findViewById(R.id.txtNomeCadeira);
         TextView nomeProfessor = (TextView) rootView.findViewById(R.id.txtProfessor);
         ListView categoriaAvaliacao = (ListView) rootView.findViewById(R.id.listCategoriaavaliacao);
         TextView qtdeAvaliacoes = (TextView) rootView.findViewById(R.id.txtQtdeAvaliacoes);
         ListView comentarios = (ListView) rootView.findViewById(R.id.listcomentarios);
+
+        final CheckBox chkFavoritar = (CheckBox) rootView.findViewById(R.id.favorite);
 
         nomeCadeira.setText(cadeiraSelecionada.getString("nome"));
         nomeProfessor.setText(cadeiraSelecionada.getString("nomeProfessor"));
@@ -167,6 +172,30 @@ public class VisualizarCadeiraFragment extends Fragment {
                 fragment.setArguments(bundleEnvio);
                 transaction.replace(R.id.container, fragment)
                         .commit();
+            }
+        });
+
+        //setando a estrela assim que entra na tela
+        final RepositorioCadeiraFavoritaParse cadeiraFavoritaParse = new RepositorioCadeiraFavoritaParse(db);
+        ParseCadeiraFavorita favorita = cadeiraFavoritaParse.get(alunoLogado, cadeiraSelecionada);
+
+        if(favorita.getObjectId() != null){
+            chkFavoritar.setChecked(true);
+        }else{
+            chkFavoritar.setChecked(false);
+        }
+
+        //logica de favoritar
+        chkFavoritar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(chkFavoritar.isChecked()){
+                    ParseCadeiraFavorita aux = new ParseCadeiraFavorita(alunoLogado, cadeiraSelecionada);
+                    cadeiraFavoritaParse.insert(aux);
+                }else{
+                    ParseCadeiraFavorita aux = cadeiraFavoritaParse.get(alunoLogado, cadeiraSelecionada);
+                    cadeiraFavoritaParse.delete(aux);
+                }
             }
         });
 
