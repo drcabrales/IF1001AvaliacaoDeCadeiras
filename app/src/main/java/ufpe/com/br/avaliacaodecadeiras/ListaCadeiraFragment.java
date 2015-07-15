@@ -177,6 +177,7 @@ public class ListaCadeiraFragment extends Fragment {
                 bundle.putSerializable("aluno", alunoLogado);
 
 
+
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 VisualizarCadeiraFragment fragment = new VisualizarCadeiraFragment();
                 fragment.setArguments(bundle);
@@ -197,6 +198,7 @@ public class ListaCadeiraFragment extends Fragment {
 
                 bundle.putSerializable("cadeira", cadeiraSelecionada);
                 bundle.putSerializable("aluno", alunoLogado);
+
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 VisualizarCadeiraFragment fragment = new VisualizarCadeiraFragment();

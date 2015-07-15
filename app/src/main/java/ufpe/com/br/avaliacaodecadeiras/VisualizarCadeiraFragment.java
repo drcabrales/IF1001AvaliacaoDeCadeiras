@@ -26,6 +26,7 @@ import objetoParse.ParseCadeira;
 import objetoParse.ParseCadeiraFavorita;
 import objetoParse.ParseCategoriaAvaliacaoCadeira;
 import objetoParse.ParseComentario;
+import objetoParse.ParseCurso;
 import objetoParse.ParseMetodoAvaliacaoCadeira;
 import repositorioParse.RepositorioAvaliacaoMetodoParse;
 import repositorioParse.RepositorioAvaliacaoParse;
@@ -83,6 +84,7 @@ public class VisualizarCadeiraFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     @Override
@@ -90,7 +92,8 @@ public class VisualizarCadeiraFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_visualizar_cadeira, container, false);
-        Bundle bundle = this.getArguments();
+        final Bundle bundle = this.getArguments();
+        final Bundle bundle2 = new Bundle();
         final ParseCadeira cadeiraSelecionada = (ParseCadeira) bundle.getSerializable("cadeira");
         final ParseAluno alunoLogado = (ParseAluno) bundle.getSerializable("aluno");
 
@@ -107,6 +110,7 @@ public class VisualizarCadeiraFragment extends Fragment {
 
         Button avaliar1 = (Button) rootView.findViewById(R.id.btnavaliar);
         Button avaliar2 = (Button) rootView.findViewById(R.id.btnavaliar2);
+        Button voltar = (Button) rootView.findViewById(R.id.btnvoltar);
 
         //setando adapter da lista de categoria avaliação, passando a cadeira corrente
         Database db = new Database(this.getActivity());
@@ -171,6 +175,21 @@ public class VisualizarCadeiraFragment extends Fragment {
                 AvaliarCadeirasFragment fragment = new AvaliarCadeirasFragment();
                 fragment.setArguments(bundleEnvio);
                 transaction.replace(R.id.container, fragment)
+                        .commit();
+            }
+        });
+
+        voltar.setOnClickListener(new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                ListaCadeiraFragment fragment = new ListaCadeiraFragment();
+                bundle2.putSerializable("aluno",alunoLogado);
+
+                fragment.setArguments(bundle2);
+                transaction
+                        .replace(R.id.container, fragment)
                         .commit();
             }
         });

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,6 +106,7 @@ public class AvaliarCadeirasFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_avaliar_cadeiras, container, false);
 
         Bundle bundle = this.getArguments();
+        final Bundle bundle2 = new Bundle();
         final ParseCadeira cadeiraSelecionada = (ParseCadeira) bundle.getSerializable("cadeira");
         final ParseAluno alunoLogado = (ParseAluno) bundle.getSerializable("aluno");
 
@@ -131,6 +133,7 @@ public class AvaliarCadeirasFragment extends Fragment {
         final EditText editComentarios = (EditText) rootView.findViewById(R.id.edtcomentarioAvaliacao);
 
         Button btnAvaliar = (Button) rootView.findViewById(R.id.btnsalvarAvaliacao);
+        Button btnvoltaravAliacao = (Button) rootView.findViewById(R.id.btnvoltaravAliacao);
 
         seekDificuldade.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -313,6 +316,20 @@ public class AvaliarCadeirasFragment extends Fragment {
             }
         });
 
+
+        btnvoltaravAliacao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bundle2.putSerializable("aluno",alunoLogado);
+                bundle2.putSerializable("cadeira",cadeiraSelecionada);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                VisualizarCadeiraFragment fragment = new VisualizarCadeiraFragment();
+                fragment.setArguments(bundle2);
+                transaction
+                        .replace(R.id.container, fragment)
+                        .commit();
+            }
+        });
 
 
         nomeCadeira.setText(cadeiraSelecionada.getString("nome"));

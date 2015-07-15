@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -48,6 +51,7 @@ public class CadeirasFavoritasFragment extends Fragment {
     private ArrayList<ParseObject> listaFavorito = new ArrayList<ParseObject>();
     private OnFragmentInteractionListener mListener;
 
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -77,6 +81,8 @@ public class CadeirasFavoritasFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
     }
 
     @Override
@@ -164,6 +170,16 @@ public class CadeirasFavoritasFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Id correspondente ao botão Up/Home da actionbar
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(getActivity().getParent());
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**

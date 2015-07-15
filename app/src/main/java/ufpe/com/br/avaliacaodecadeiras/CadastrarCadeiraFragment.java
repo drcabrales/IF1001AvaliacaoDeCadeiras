@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import database.Database;
+import objetoParse.ParseAluno;
 import objetoParse.ParseCadeira;
 import objetoParse.ParseCurso;
 import repositorioParse.RepositorioCadeiraParse;
@@ -75,6 +77,8 @@ public class CadastrarCadeiraFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_cadastrar_cadeira, container, false);
 
         Bundle bundle = this.getArguments();
+        final Bundle bundle2 = new Bundle();
+        final ParseAluno alunoLogado = (ParseAluno) bundle.getSerializable("aluno");
         //TODO: EM LISTAR CADEIRA, PASSAR PRO BUNDLE DO FRAGMENT O CURSO QUE TÁ SENDO VISUALIZADO NO MOMENTO
         final ParseCurso cursoSelecionado = (ParseCurso) bundle.getSerializable("curso");
 
@@ -109,7 +113,13 @@ public class CadastrarCadeiraFragment extends Fragment {
         btnVoltarCadastrarCadeira.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: volta para o listar cadeiras com replace fragment
+                bundle2.putSerializable("aluno",alunoLogado);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                ListaCadeiraFragment fragment = new ListaCadeiraFragment();
+                fragment.setArguments(bundle2);
+                transaction
+                        .replace(R.id.container, fragment)
+                        .commit();
             }
         });
 

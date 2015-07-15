@@ -43,6 +43,17 @@
             android:name=".CadastroUsuarioActivity"
             android:label="@string/title_activity_cadastro_usuario" >
         </activity>
+
+    <activityo
+        android:name=".CadeirasFavoritasFragment"
+        android:label="@string/title_activity_cadeiras_favoritas"
+        android:parentActivityName="AvaliacaoDeCadeirasMainActivity" >
+        <!-- Parent activity meta-data to support 4.0 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="AvaliacaoDeCadeirasMainActivity" />
+    </activityo>
+
     </application>
 
 </manifest>
