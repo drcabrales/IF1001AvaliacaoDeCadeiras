@@ -215,7 +215,9 @@ public class ListaCadeiraFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(cursoSelecionado != null){
+                    ParseAluno alunoLogado = (ParseAluno) mBundle.getSerializable("aluno");
                     bundle2.putSerializable("curso",cursoSelecionado);
+                    bundle2.putSerializable("aluno",alunoLogado);
                     FragmentTransaction transaction = getFragmentManager().beginTransaction();
                     CadastrarCadeiraFragment fragment = new CadastrarCadeiraFragment();
                     fragment.setArguments(bundle2);

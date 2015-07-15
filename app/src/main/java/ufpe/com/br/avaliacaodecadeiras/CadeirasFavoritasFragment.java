@@ -135,6 +135,8 @@ public class CadeirasFavoritasFragment extends Fragment {
                 bundle.putSerializable("cadeira", cadeiraSelecionada);
                 bundle.putSerializable("aluno", aluno);
 
+
+
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 VisualizarCadeiraFragment fragment = new VisualizarCadeiraFragment();
                 fragment.setArguments(bundle);

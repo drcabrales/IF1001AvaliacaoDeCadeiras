@@ -99,9 +99,18 @@ public class CadastroUsuarioActivity extends Activity {
                 toastCadastroOk.show();
                 ParseAluno alunoACadastrar;
                 ParseFaculdade auxF = repFaculdadeP.get(siglaSelecionada);
-                if(!auxF.getNome().equals("")){ //se existe essa faculdade
-                    ParseCurso aux = repCurso.get(autoCompleteNomeCurso.getText().toString(), auxF);
-                    alunoACadastrar = new ParseAluno(nomeUsuario.getText().toString(), emailUsuario.getText().toString(), senhaUsuario.getText().toString(), aux);
+                ParseCurso auxIf = repCurso.get(autoCompleteNomeCurso.getText().toString(), auxF);
+                if(auxF.getNome() != null && !auxF.getNome().equals("") ){ //se existe essa faculdade
+                    if(auxIf.getNome() != null){
+                        ParseCurso aux = repCurso.get(autoCompleteNomeCurso.getText().toString(), auxF);
+                        alunoACadastrar = new ParseAluno(nomeUsuario.getText().toString(), emailUsuario.getText().toString(), senhaUsuario.getText().toString(), aux);
+                    }else{
+                        ParseCurso aux = new ParseCurso(autoCompleteNomeCurso.getText().toString(), "", auxF);
+                        aux.saveInBackground();
+                        aux = repCurso.get(autoCompleteNomeCurso.getText().toString(), auxF);
+                        alunoACadastrar = new ParseAluno(nomeUsuario.getText().toString(), emailUsuario.getText().toString(), senhaUsuario.getText().toString(), aux);
+                    }
+
                 }else{ //senao
                     auxF = new ParseFaculdade(nomeFaculdade.getText().toString(),autoCompleteSiglaFaculdade.getText().toString());
                     auxF.saveInBackground();

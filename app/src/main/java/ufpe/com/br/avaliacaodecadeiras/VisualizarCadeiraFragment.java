@@ -97,6 +97,7 @@ public class VisualizarCadeiraFragment extends Fragment {
         final ParseCadeira cadeiraSelecionada = (ParseCadeira) bundle.getSerializable("cadeira");
         final ParseAluno alunoLogado = (ParseAluno) bundle.getSerializable("aluno");
 
+
         TextView nomeCadeira = (TextView) rootView.findViewById(R.id.txtNomeCadeira);
         TextView nomeProfessor = (TextView) rootView.findViewById(R.id.txtProfessor);
         ListView categoriaAvaliacao = (ListView) rootView.findViewById(R.id.listCategoriaavaliacao);
@@ -184,6 +185,8 @@ public class VisualizarCadeiraFragment extends Fragment {
             public void onClick(View v) {
 
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+
                 ListaCadeiraFragment fragment = new ListaCadeiraFragment();
                 bundle2.putSerializable("aluno",alunoLogado);
 
